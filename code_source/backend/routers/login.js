@@ -22,17 +22,22 @@ router.post('/login', function (req, res, next) {
 		
 		db.serialize(() => {
 			// check if the password is okay
-			const statement = db.prepare("SELECT pseudo, motDePasse FROM utilisateur WHERE login=?;");
+			const statement = db.prepare("SELECT pseudo, motDePasse FROM utilisateur WHERE pseudo=?;");
 			statement.get(data['login'], (err, result) => {
 				if(err){
 					next(err);
 				} else {
-					if(result["motDePasse"] == data["password"]){
-						req.session.loggedin=true;
-						req.session.login=result['pseudo'];
-						next();
-					} else {
-						res.render('login.ejs', {logged: false, login: req.session.login, error: true});
+					if (typeof(result)==="undefined"){
+						res.send("Login incorrect") // faire page propre
+					}
+					else{
+						if(result["motDePasse"] == data["password"]){
+							req.session.loggedin=true;
+							req.session.login=result['pseudo'];
+							next();
+						} else {
+							res.render('login.ejs', {logged: false, login: req.session.login, error: true});
+						}
 					}
 				}
 			});
