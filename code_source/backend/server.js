@@ -25,17 +25,22 @@ app.use(session({
 
 // routers
 
+const signup = require('./routers/signup');
+app.use('/signup', signup);
+
 const login = require('./routers/login');
 app.use('/', login);
 
 const router = require('./routers/router');
 app.use('/', router);
 
+/*
 // 404
-router.use('*', function(req, res){
+app.use('*', function(req, res){
     res.status(404);
-	res.render('404.ejs', {logged: req.session.loggedin});
-});
+	res.render('404.ejs', {login: req.session.login, logged: req.session.loggedin});
+});*/
+
 // run the server
 app.listen(port, () => {
 	// callback executed when the server is launched

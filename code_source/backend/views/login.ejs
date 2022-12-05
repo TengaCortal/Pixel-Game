@@ -27,7 +27,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+      <a href="/index.html" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <h1>SuperPixelGame</h1>
       </a>
@@ -83,13 +83,15 @@
       </div>
     </section><!-- End Login Section -->
 
-    <section id="signup" class="signup">
-      <div class="signup" >
-        <a href="/signup" class="signup">
-          <input type ="button" value="Inscrivez vous">
-        </a>
-      </div>
-    </section>
+    <% if (!logged) { %>
+      <section id="signup" class="signup">
+        <div class="signup" >
+          <a href="/signup" class="signup">
+            <input type ="button" value="Inscrivez vous">
+          </a>
+        </div>
+      </section>
+    <% } %>
 
   </main><!-- End #main -->
 

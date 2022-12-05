@@ -34,12 +34,19 @@
 
 
   <main id="main">
-
-    <div class="login" >
-      <a href="/login" class="login">
-        <input type ="button" value="Login">
-      </a>
-    </div>
+    <% if (!logged) { %>
+      <div class="login" >
+        <a href="/login" class="login">
+          <input type ="button" value="Login">
+        </a>
+      </div>
+    <% } else{ %>
+      <div class="logout" >
+        <a href="/logout" class="logout">
+          <input type ="button" value="Logout">
+        </a>
+      </div>
+    <% } %>
 
     <div class="create_canva" >
       <a href="/canva/create" class="create_canva">
@@ -53,12 +60,19 @@
       </a>
     </div>
 
-    <section id="stat_user">
-      <h2 id="title"> Statistiques utilisateur </h2>
-    </section>
+    <% if (logged){ %>
+      <section id="stat_user">
+        <h2 id="title"> Statistiques de <%= login %> </h2>
+        <div> Statut de l'utilisateur : <%= statutU%> </div>
+        <div> Nombre de participations à différents canvas : <%= nbParticipationCanvaU%> </div>
+        <div> Nombre de pixel posé : <%= nbTotalPixelPoseU%> </div>
+      </section>
+    <% } %>
 
     <section id="stat_global">
       <h2 id="title"> Statistiques globales </h2>
+      <div> Nombre d'utilisateur inscrits sur le site : <%= nbUtilisateurSite%> </div>
+      <div> Nombre de canvas disponibles sur le site : <%= nbCanvaSite%> </div>
     </section>
 
 
