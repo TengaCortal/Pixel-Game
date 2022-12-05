@@ -59,51 +59,12 @@ router.use('/logout', function (req, res) {
 	res.redirect('/login');
 });
 
-
-
-router.post('/signup', function (req, res) {
-    let data = req.body;
-    let aCree = false;
-    if(data['login']!=null && data['login']!="" && data['password']!=null && data['password']!=""){
-        db.serialize(() => {
-			const statement = db.prepare('INSERT INTO utilisateur (pseudo, motDePasse, statut, nbParticipationCanva, nbTotalPixelPose) VALUES(?, ?, "normal", 0, 0);');
-			statement.get(data['login'], data['password'], (err, result) => {
-				if(err){
-					res.status(400).send('Login déjà utilisé!'); //faire une page propre
-				} else {
-                    req.session.login = data["login"];
-                    incrementerNbUtilisateur();
-                    res.render('login.ejs', {logged: true, login: req.session.login, error: true});
-				}
-			});
-			statement.finalize();
-        });
-        
-    }
-    else{
-        res.status(400).send('Bad request!');
-    }
-});
-
-function incrementerNbUtilisateur(){
-    let nbUtilisateur = 0;
-    db.serialize(() => {
-        db.get('SELECT nbUtilisateurTotal FROM site', (err, result) => {
-            console.log(result);
-            nbUtilisateur = result["nbUtilisateurTotal"];
-        });
-        
-        const statement = db.prepare('UPDATE site SET nbUtilisateurTotal = ?;')
-        statement.get(nbUtilisateur+1, (err, result) => {});
-        statement.finalize();
-    });
-
-}
-
-router.use('/signup', function (req, res) {
-	res.sendFile('signup.html', {root: "../frontend"});
-});
-
-
+/*
+// 404
+router.use('*', function(req, res){
+	console.log("chelou")
+    res.status(404);
+	res.render('404.ejs', {login: req.session.login, logged: req.session.loggedin});
+});*/
 
 module.exports = router;
