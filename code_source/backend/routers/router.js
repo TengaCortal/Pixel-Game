@@ -39,15 +39,12 @@ router.use('/', function (req, res) {
 });
 
 function statPerso(login){
-	console.log(login)
 	db.serialize(() => {
 		const statement = db.prepare('SELECT * FROM utilisateur WHERE pseudo=?;');
 		statement.get(login, (err, result) =>{
-			console.log(result)
 			statut = result["statut"];
 			nbTotalPixelPose = result["nbTotalPixelPose"];
 			nbParticipationCanva = result["nbParticipationCanva"];
-			console.log([statut, nbTotalPixelPose, nbParticipationCanva])
 		})
 		
 	});

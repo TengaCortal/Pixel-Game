@@ -71,7 +71,6 @@ router.post('/available', function(req, res) {
 })
 
 router.get('/', function (req, res) {
-    console.log("clc")
 	res.sendFile('signup.html', {root: "../frontend"});
 });
 
