@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const md5 = require('md5');
 
 // add data to req.body (for POST requests)
 router.use(express.urlencoded({ extended: true }));
@@ -20,7 +21,7 @@ router.post('/', function (req, res) {
     if(data['login']!=null && data['login']!="" && data['password']!=null && data['password']!=""){
         db.serialize(() => {
 			const statement = db.prepare('INSERT INTO utilisateur (pseudo, motDePasse, statut, nbParticipationCanva, nbTotalPixelPose) VALUES(?, ?, "normal", 0, 0);');
-			statement.get(data['login'], data['password'], (err, result) => {
+			statement.get(data['login'], md5(data['password']), (err, result) => {
 				if(err){
 					res.status(400).send('Login déjà utilisé!'); //faire une page propre
 				} else {

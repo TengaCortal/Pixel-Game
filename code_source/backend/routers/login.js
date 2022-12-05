@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const md5 = require('md5');
 
 // add data to req.body (for POST requests)
 router.use(express.urlencoded({ extended: true }));
@@ -31,7 +32,7 @@ router.post('/login', function (req, res, next) {
 						res.send("Login incorrect") // faire page propre
 					}
 					else{
-						if(result["motDePasse"] == data["password"]){
+						if(result["motDePasse"] == md5(data["password"])){
 							req.session.loggedin=true;
 							req.session.login=result['pseudo'];
 							next();
