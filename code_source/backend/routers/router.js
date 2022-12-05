@@ -15,15 +15,15 @@ const db  = new sqlite3.Database('./db/pixel_war.db', (err) => {
 });
 
 // home
-router.use('/home', function (req, res) {
+router.get('/home', function (req, res) {
 	res.redirect('/');
 });
 
-router.use('/index.html', function (req, res) {
+router.get('/index.html', function (req, res) {
 	res.redirect('/');
 });
 
-router.use('/', function (req, res) {
+router.get('/', function (req, res) {
 	let nbUtilisateur = 0;
 	let nbCanva = 0;
 	db.get('SELECT * FROM site;', (err, result) => {
@@ -45,18 +45,11 @@ function statPerso(login){
 			statut = result["statut"];
 			nbTotalPixelPose = result["nbTotalPixelPose"];
 			nbParticipationCanva = result["nbParticipationCanva"];
-		})
+		});
+		statement.finalize();
 		
 	});
 	
 }
-
-// 404
-/*
-router.use('*', function(req, res){
-	console.log("bizarre")
-    res.status(404);
-	res.render('404.ejs', {login: req.session.login, logged: req.session.loggedin});
-});*/
 
 module.exports = router;

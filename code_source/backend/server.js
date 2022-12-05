@@ -34,12 +34,12 @@ app.use('/', login);
 const router = require('./routers/router');
 app.use('/', router);
 
-/*
+
 // 404
-app.use('*', function(req, res){
+app.use((req, res) => {
     res.status(404);
 	res.render('404.ejs', {login: req.session.login, logged: req.session.loggedin});
-});*/
+});
 
 // run the server
 app.listen(port, () => {

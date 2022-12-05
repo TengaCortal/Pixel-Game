@@ -35,7 +35,7 @@ router.post('/login', function (req, res, next) {
 						if(result["motDePasse"] == md5(data["password"])){
 							req.session.loggedin=true;
 							req.session.login=result['pseudo'];
-							next();
+							res.render('login.ejs', {logged: true, login: req.session.login, error: true});
 						} else {
 							res.render('login.ejs', {logged: false, login: req.session.login, error: true});
 						}
@@ -51,21 +51,13 @@ router.post('/login', function (req, res, next) {
 	}
 });
 
-router.use('/login', function (req, res) {
+router.get('/login', function (req, res) {
 	res.render('login.ejs', {logged: req.session.loggedin, login: req.session.login, error: false});
 });
 
-router.use('/logout', function (req, res) {
+router.get('/logout', function (req, res) {
 	req.session.destroy();
 	res.redirect('/login');
 });
-
-/*
-// 404
-router.use('*', function(req, res){
-	console.log("chelou")
-    res.status(404);
-	res.render('404.ejs', {login: req.session.login, logged: req.session.loggedin});
-});*/
 
 module.exports = router;

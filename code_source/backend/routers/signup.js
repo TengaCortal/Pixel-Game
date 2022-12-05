@@ -75,11 +75,4 @@ router.get('/', function (req, res) {
 	res.sendFile('signup.html', {root: "../frontend"});
 });
 
-/*
-// 404
-router.use('*', function(req, res){
-    res.status(404);
-	res.render('404.ejs', {login: req.session.login, logged: req.session.loggedin});
-});*/
-
 module.exports = router;
