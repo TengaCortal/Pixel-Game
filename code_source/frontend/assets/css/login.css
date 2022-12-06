@@ -36,3 +36,11 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+#home {
+    width: 4%;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+
+}

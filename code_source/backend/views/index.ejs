@@ -20,6 +20,10 @@
 
 <body>
 
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>
+  
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
@@ -32,8 +36,8 @@
 
     </div>
 
-    <div id="home" class="home" >
-      <a href="/" ><img src="assets/img/home.png"></a>
+    <div>
+      <a href="/" ><img id="home" src="assets/img/home.png"></a>
     </div>
   </header><!-- End Header -->
 
@@ -80,8 +84,8 @@
 
     <section id="stat_global">
       <h2 id="title"> Statistiques globales </h2>
-      <div> Nombre d'utilisateur inscrits sur le site : <%= nbUtilisateurSite%> </div>
-      <div> Nombre de canvas disponibles sur le site : <%= nbCanvaSite%> </div>
+      <div id="statsUser"> Nombre d'utilisateur inscrits sur le site : <%= nbUtilisateurSite%> </div>
+      <div id="statsCanva"> Nombre de canvas disponibles sur le site : <%= nbCanvaSite%> </div>
     </section>
 
 
