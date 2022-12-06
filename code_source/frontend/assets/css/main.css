@@ -1,0 +1,205 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+    --color-red: #ec1840;
+    --color-purple: #7a18ec;
+    --color-white: #fff;
+    --color-black-1: #111;
+    --color-black-2: #222;
+    --color-black-3: #444;
+    --speed-normal: 0.5s;
+    --speed-fast: 0.8s;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+}
+
+
+body {
+    margin: 0;
+    background: var(--color-black-1);
+}
+
+
+h1 {
+    font-size: 140px;
+    text-align: center;
+    background: -webkit-linear-gradient(rgb(211, 13, 230), rgb(147, 236, 217));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+#login {
+    width: 180px;
+    height: 60px;
+    padding: 10px ;
+    margin: 20px;
+
+}
+
+
+
+
+/* CI-DESSOUS JE TEST DES TRUCS */ 
+
+/* <!-- HTML !-->
+<button class="button-85" role="button">Button 85</button>
+*/
+
+/* CSS */
+#join {
+    margin: 20px;
+    width: 180px;
+    height: 60px;
+    padding: 10px ;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#join:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+#join:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+/*<!-- HTML !-->
+<button class="button-92" role="button">Button 92</button>
+*/
+/* CSS */
+
+
+/* #create {
+  --c: #fff;
+  background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p,100%)/300% no-repeat,
+    #004dff;
+  color: #0000;
+  border: none;
+  transform: perspective(500px) rotateY(calc(20deg*var(--_i,-1)));
+  text-shadow: calc(var(--_i,-1)* 0.08em) -.01em 0   var(--c),
+    calc(var(--_i,-1)*-0.08em)  .01em 2px #0004;
+  outline-offset: .1em;
+  transition: 0.3s;
+}
+
+#create:hover,
+#create:focus-visible {
+  --_p: 0%;
+  --_i: 1;
+}
+
+#create:active {
+  text-shadow: none;
+  color: var(--c);
+  box-shadow: inset 0 0 9e9q #0005;
+  transition: 0s;
+}
+
+#create {
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0;
+  cursor: pointer;
+  padding: .3em .3em;
+}
+
+*/
+
+
+
+#pixelbox1 {
+    position: relative;
+    width: 180px;
+    height: 60px;
+    margin: 20px;
+    line-height: 60px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-text-fill-color: white;
+    color: #fff;
+    transition: var(--speed-normal);
+    border: 1px solid var(--color-red);
+}
+
+#pixelbox1:hover {
+    border: 1px solid transparent;
+    background: var(--color-red) url(https://i.postimg.cc/wBXGXbWN/pixel.png); 
+    transition-delay: 0.8s;
+    background-size: 180px;
+    animation: animate var(--speed-fast) steps(8) forwards;
+}
+
+@keyframes animate {
+    0% {
+        background-position-y: 0;
+    }
+    100% {
+        background-position-y: -480px;
+    }
+}
+

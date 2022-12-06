@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title> SuperPixelWar </title>
+  <title> Super Pixel Game! </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -27,37 +27,46 @@
       
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img id="image_logo" src="assets/img/logo.png" alt=""> -->
-        <h1 id="title"> SuperPixelGame </h1>
+        <h1 id="title"> Super Pixel Game ! </h1>
 
+
+    </div>
+
+    <div id="home" class="home" >
+      <a href="/" ><img src="assets/img/home.png"></a>
     </div>
   </header><!-- End Header -->
 
 
   <main id="main">
     <% if (!logged) { %>
-      <div class="login" >
+      <div id="login" class="login" >
         <a href="/login" class="login">
           <input type ="button" value="Login">
         </a>
       </div>
     <% } else{ %>
-      <div class="logout" >
+      <div id="logout" class="logout" >
         <a href="/logout" class="logout">
           <input type ="button" value="Logout">
         </a>
       </div>
     <% } %>
 
-    <div class="create_canva" >
+    <div id="create" class="create_canva" >
       <a href="/canva/create" class="create_canva">
         <input type ="button" value="Création d'un canva">
       </a>
     </div>
 
-    <div class="join_canva" >
+    <div id="join" class="join_canva" >
       <a href="/canva/join" class="join_canva">
         <input type ="button" value="Rejoindre un canva">
       </a>
+    </div>
+
+    <div id="pixelbox1">
+      <a style="text-decoration:none" href="javascript:void(0);">Test</a>
     </div>
 
     <% if (logged){ %>
