@@ -36,6 +36,10 @@ h1 {
     -webkit-text-fill-color: transparent;
 }
 
+#stat_global, #stat_user {
+  color:rgb(255, 255, 255);
+}
+
 #home {
   width: 4%;
   position: absolute;
@@ -44,7 +48,7 @@ h1 {
 
 }
 
-#login {
+/* #login {
   width: 180px;
   height: 60px;
   padding: 10px ;
@@ -59,7 +63,7 @@ h1 {
 #statsCanva {
   color: #fff;
 }
-
+*/
 
 
 
@@ -184,29 +188,48 @@ h1 {
 
 
 
-#pixelbox1 {
+#pixelbox1, #login {
     position: relative;
-    width: 180px;
-    height: 60px;
+    width: 260px;
+    height: 120px;
     margin: 20px;
     line-height: 60px;
     letter-spacing: 2px;
     text-decoration: none;
     text-transform: uppercase;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;;
+    
     -webkit-text-fill-color: white;
     color: #fff;
     transition: var(--speed-normal);
-    border: 1px solid var(--color-red);
+
 }
 
-#pixelbox1:hover {
+#pixelbox1:hover, #login:hover{
     border: 1px solid transparent;
-    background: var(--color-red) url(https://i.postimg.cc/wBXGXbWN/pixel.png); 
     transition-delay: 0.8s;
     background-size: 180px;
     animation: animate var(--speed-fast) steps(8) forwards;
 }
+
+#pixelbox1 {
+  border: 1px solid var(--color-red);
+}
+#login {
+  border: 1px solid var(--color-purple);
+}
+
+#pixelbox1:hover {
+  background: var(--color-red) url(https://i.postimg.cc/wBXGXbWN/pixel.png); 
+}
+
+#login:hover {
+  background: var(--color-purple) url(https://i.postimg.cc/FzBWFtKM/pixel2.png); 
+}
+
 
 @keyframes animate {
     0% {
@@ -217,6 +240,8 @@ h1 {
     }
 }
 
+
+/* BACKGORUND PIXEL STAR */
 
 html {
   height: 100%;
