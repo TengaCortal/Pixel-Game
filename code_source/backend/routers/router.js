@@ -24,32 +24,23 @@ router.get('/index.html', function (req, res) {
 });
 
 router.get('/', function (req, res) {
-	let nbUtilisateur = 0;
-	let nbCanva = 0;
+	var nbUtilisateur = 0;
+	var nbCanva = 0;
+	var statut = "0";
+	var nbParticipationCanva = 0;
+	var nbTotalPixelPose = 0;
 	db.get('SELECT * FROM site;', (err, result) => {
 		nbUtilisateur = result["nbUtilisateurTotal"];
 		nbCanva = result["nbCanvaTotal"];
 		if (req.session.loggedin){
-			statPerso(req.session.login);
+			statut = req.session.statut;
+			nbParticipationCanva = req.session.nbParticipationCanva;
+			nbTotalPixelPose = req.session.nbTotalPixelPose;
 		}
 		res.render('index.ejs', {logged: req.session.loggedin, login: req.session.login, nbUtilisateurSite: nbUtilisateur, nbCanvaSite : nbCanva,
 								statutU: statut, nbTotalPixelPoseU: nbTotalPixelPose, nbParticipationCanvaU: nbParticipationCanva});
 	});
 	
 });
-
-function statPerso(login){
-	db.serialize(() => {
-		const statement = db.prepare('SELECT * FROM utilisateur WHERE pseudo=?;');
-		statement.get(login, (err, result) =>{
-			statut = result["statut"];
-			nbTotalPixelPose = result["nbTotalPixelPose"];
-			nbParticipationCanva = result["nbParticipationCanva"];
-		});
-		statement.finalize();
-		
-	});
-	
-}
 
 module.exports = router;

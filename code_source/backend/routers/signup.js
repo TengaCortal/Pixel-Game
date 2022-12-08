@@ -27,6 +27,9 @@ router.post('/', function (req, res) {
 				} else {
                     req.session.login = data["login"];
                     req.session.loggedin = true;
+                    req.session.statut = "normal";
+                    req.session.nbParticipationCanva = 0;
+                    req.session.nbTotalPixelPose = 0;
                     db.get('SELECT * FROM site;', (err, result) => {
                         nbUtilisateurAvant = result["nbUtilisateurTotal"];
                         incrementerNbUtilisateur(nbUtilisateurAvant);

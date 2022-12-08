@@ -23,7 +23,7 @@ router.post('/login', function (req, res, next) {
 		
 		db.serialize(() => {
 			// check if the password is okay
-			const statement = db.prepare("SELECT pseudo, motDePasse FROM utilisateur WHERE pseudo=?;");
+			const statement = db.prepare("SELECT pseudo, motDePasse, statut, nbParticipationCanva, nbTotalPixelPose FROM utilisateur WHERE pseudo=?;");
 			statement.get(data['login'], (err, result) => {
 				if(err){
 					next(err);
@@ -34,7 +34,10 @@ router.post('/login', function (req, res, next) {
 					else{
 						if(result["motDePasse"] == md5(data["password"])){
 							req.session.loggedin=true;
-							req.session.login=result['pseudo'];
+							req.session.login = result['pseudo'];
+							req.session.statut = result['statut'];
+							req.session.nbParticipationCanva = result['nbParticipationCanva'];
+							req.session.nbTotalPixelPose = result['nbTotalPixelPose'];
 							res.render('login.ejs', {logged: true, login: req.session.login, error: true});
 						} else {
 							res.render('login.ejs', {logged: false, login: req.session.login, error: true});
