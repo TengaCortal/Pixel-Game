@@ -18,6 +18,7 @@
   
   <!-- Template Main CSS File -->
   <link href="assets/css/login.css" rel="stylesheet">
+  <link href="assets/css/background.css" rel="stylesheet">
 
 </head>
 
@@ -56,7 +57,7 @@
           <% if(logged) { %>
           <h2>Bye, <%= login %>!</h2>
           <% } else {%>
-          <h2>Hello, please log in:</h2>
+          <h2></h2>
           <% } %>
         </div>
 
@@ -80,19 +81,32 @@
               <div id="box" class="box">
                 <form>
                   <span id="text-center" class="text-center">Hello please log in</span>
-                <div id="input" class="input-container">
-                  <input type="text" required=""/>
-                  <label>Login</label>		
-                </div>
-                <div id="input" class="input-container">		
-                  <input type="password" class="form-control" required=""/>
-                  <label>Password</label>
-                </div>
-                  <button id="btn" type="button" class="btn">submit</button>
-              </form>	
+                
+                  <div id="input" class="input-container">
+                    <input type="text" required=""/>
+                    <label>Login</label>		
+                  </div>
+
+                  <div id="input" class="input-container">		
+                    <input type="password" class="form-control" required=""/>
+                    <label>Password</label>
+                  </div>
+
+                  <button id="btnSubmit" type="button" class="btn">submit</button>
+
+                  <% if (!logged) { %>
+                    <section id="signup" class="signup">
+                      <div class="signup" >
+                        <a href="/signup" class="signup">
+                          <button id="btnSignUp" type="button" class="btn">Sign Up</button>
+                        </a>
+                      </div>
+                    </section>
+                  <% } %>
+                </form>	
               </div>
 
-              <div class="form-group">
+              <!--<div class="form-group">
                 <input type="text" name="login" class="form-control" id="login" placeholder="Login" required>
               </div>
               <div class="form-group">
@@ -100,14 +114,14 @@
               </div>
             
             
-            <div class="text-center"><button type="submit">Submit</button></div>
+            <div class="text-center"><button type="submit">Submit</button></div> -->
           </form>
         <% } %> 
         <!--End Contact Form -->
       </div>
     </section><!-- End Login Section -->
 
-    <% if (!logged) { %>
+    <!-- <% if (!logged) { %>
       <section id="signup" class="signup">
         <div class="signup" >
           <a href="/signup" class="signup">
@@ -115,7 +129,7 @@
           </a>
         </div>
       </section>
-    <% } %>
+    <% } %> -->
 
   </main><!-- End #main -->
 
