@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 // set the server host and port
-const port = 3001;
+const port = 3006;
 
 // add data to req.body (for POST requests)
 app.use(express.urlencoded({ extended: true }));
@@ -27,6 +27,9 @@ app.use(session({
 
 const signup = require('./routers/signup');
 app.use('/signup', signup);
+
+const create = require('./routers/create');
+app.use('/canva/create', create);
 
 const login = require('./routers/login');
 app.use('/', login);

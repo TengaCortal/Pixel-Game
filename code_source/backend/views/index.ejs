@@ -47,16 +47,19 @@
         </a>
       </div>
     <% } %>
-
-    <div class="create_canva" >
-      <a href="/canva/create" class="create_canva">
-        <input type ="button" value="Création d'un canva">
-      </a>
-    </div>
+    
+    <% if (logged){ %>
+      <div class="create_canva" >
+        <a href="/canva/create" class="create_canva">
+          <input type ="button" value="Create canva">
+        </a>
+      </div>
+    <% } %>
+    
 
     <div class="join_canva" >
-      <a href="/canva/join" class="join_canva">
-        <input type ="button" value="Rejoindre un canva">
+      <a href="/join" class="join_canva">
+        <input type ="button" value="Join canva">
       </a>
     </div>
 
