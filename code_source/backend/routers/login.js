@@ -29,7 +29,7 @@ router.post('/login', function (req, res, next) {
 					next(err);
 				} else {
 					if (typeof(result)==="undefined"){
-						res.send("Login incorrect") // faire page propre
+						res.render('login.ejs', {logged: false, login: req.session.login, error: true});
 					}
 					else{
 						if(result["motDePasse"] == md5(data["password"])){
@@ -38,7 +38,7 @@ router.post('/login', function (req, res, next) {
 							req.session.statut = result['statut'];
 							req.session.nbParticipationCanva = result['nbParticipationCanva'];
 							req.session.nbTotalPixelPose = result['nbTotalPixelPose'];
-							res.render('login.ejs', {logged: true, login: req.session.login, error: true});
+							res.render('login.ejs', {logged: true, login: req.session.login, error: false});
 						} else {
 							res.render('login.ejs', {logged: false, login: req.session.login, error: true});
 						}

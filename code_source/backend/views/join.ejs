@@ -27,41 +27,40 @@
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <h1>SuperPixelGame</h1>
       </a>
-
-
-
     </div>
   </header><!-- End Header -->
 
 
   <main id="main">
 
-    <!-- ======= Breadcrumbs ======= -->
-    <div class="breadcrumbs">
-      <div class="container">
+    
+      <% if (typeof(themes) != "undefined"){ %>
+        <ol>
+          <% themes.forEach(theme => { %>
+            <div class="col-lg-4 menu-item">
+                <li>
+                  <%= theme.theme; %>
+                  <ul>
+                    <% canvas.forEach(name =>{ %>
+                    <% if (name.theme == theme.theme){ %>
+                      <li>
+                        <a href="/canva/join/nom/<%= name.nom %>">
+                          <%= name.nom; %> (<%= name.largeur; %>x<%= name.longueur; %>)
+                        </a>
+                        <% } %>
+                      </li>
+                    <% }); %>
+                  </ul>
+                <br>
+                </li>
+                
+              </div><!-- Affichage des canvas -->
+          <% }); %>
+        </ol>
+      <% } else {%>
+        <div> There is not any canva created yet! You can create one by clicking on this <a href="/canva/create">link</a>.</div>
+      <% } %>
 
-        <div class="d-flex justify-content-between align-items-center">
-          <% if(logged) { %>
-          <h2>Sorry <%= login %>, this URL was not found!</h2>
-          <% } else {%>
-          <h2>Sorry, This URL was not found!</h2>
-          <% } %>
-        </div>
-
-      </div>
-    </div><!-- End Breadcrumbs -->
-
-  
-	  <!-- ======= 404 Section ======= -->
-    <section id="404" class="404">
-      <div class="container" >
-        Click 
-        <a href="/" class=""> here</a>
-        to be redirected to the home page.
-      </div>
-    </section><!-- End 404 Section -->
-
-   
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
