@@ -92,8 +92,9 @@
 
 <foot>
   <script>
+    console.log("passe0")
     $("#login").keyup(function(){
-
+      console.log("passe1")
       let data = {login: $("#login").val()}
       $.post("/signup/available", data, function(received, status, xhr){
         if (status=="error"){
