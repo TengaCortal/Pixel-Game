@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 // set the server host and port
-const port = 3005;
+const port = 3001;
 
 // add data to req.body (for POST requests)
 app.use(express.urlencoded({ extended: true }));

@@ -1,3 +1,4 @@
+const e = require('express');
 const express = require('express');
 const router = express.Router();
 
@@ -23,7 +24,8 @@ router.post('/available', function(req, res) {
                 next(err);
             } else {
                 if(typeof(result)==="undefined"){
-                    res.status(200).send("OK");
+					statut = "OK " + req.session.statut;
+                    res.status(200).send(statut);
                 } else{
                     res.status(200).send("KO");
                 }
@@ -35,11 +37,16 @@ router.post('/available', function(req, res) {
 
 router.post('/', function (req, res, next) {
 	let data = req.body;
-    //console.log(data);
+	var width = 1000;
+	var height = 1000;
 	if(data['nom']!=null && data['nom']!="" && data['theme']!=null && data['theme']!="" && data['width']!=0 && data['height']!=0){
         db.serialize(() => {
 			const statement = db.prepare('INSERT INTO canva (nom, theme, longueur, largeur) VALUES(?, ?, ?, ?);');
-			statement.get(data['nom'], data['theme'], data['width'], data['height'], (err, result) => {
+			if(req.session.statut == "vip"){
+				width = data['width'];
+				height = data['height'];
+			}
+			statement.get(data['nom'], data['theme'], width, height, (err, result) => {
 				if(err){
 					res.status(400).send('Name already used'); //faire une page propre
 				} else {
@@ -48,7 +55,8 @@ router.post('/', function (req, res, next) {
 							nbCanvaAvant = result["nbCanvaTotal"];
 							incrementerNbCanva(nbCanvaAvant);
 						});
-						res.render('login.ejs', {logged: true, login: req.session.login, error: true});
+						url = '/canva/join/nom/'+data['nom']
+						res.redirect(url);
 					}
 				}
 			});

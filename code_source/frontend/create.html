@@ -10,12 +10,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="/assets/img/favicon.png" rel="icon">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  
   <!-- Template Main CSS File -->
   <link href="/assets/css/main.css" rel="stylesheet">
 
@@ -103,19 +99,27 @@
           alert(error)
         }
         else {
-          if (received === "KO"){
-            $("#theme").prop("disabled", true)
-            $("#width").prop("disabled", true)
-            $("#height").prop("disabled", true)
-            $("#button").prop("disabled", true)
-            $("#nameUse").remove()
-            $("#nom").after('<div id="nameUse"> Name already used </div>')
-          } else{
+          if (received === "OK vip"){
             $("#theme").prop("disabled", false)
             $("#width").prop("disabled", false)
             $("#height").prop("disabled", false)
             $("#button").prop("disabled", false)
             $("#nameUse").remove()
+          } else{
+            if(received === "OK normal"){
+              $("#theme").prop("disabled", false)
+              $("#width").prop("disabled", true)
+              $("#height").prop("disabled", true)
+              $("#button").prop("disabled", false)
+              $("#nameUse").remove()
+            }else{
+              $("#theme").prop("disabled", true)
+              $("#width").prop("disabled", true)
+              $("#height").prop("disabled", true)
+              $("#button").prop("disabled", true)
+              $("#nameUse").remove()
+              $("#nom").after('<div id="nameUse"> Name already used </div>')
+            }
           }
         }
       })
