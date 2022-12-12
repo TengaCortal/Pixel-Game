@@ -35,7 +35,7 @@ router.post('/', function (req, res) {
                         incrementerNbUtilisateur(nbUtilisateurAvant);
                     });
                     
-                    res.render('login.ejs', {logged: true, login: req.session.login, error: true});
+                    res.render('login.ejs', {logged: true, login: req.session.login, error: false});
 				}
 			});
 			statement.finalize();

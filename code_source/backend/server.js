@@ -28,6 +28,9 @@ app.use(session({
 const signup = require('./routers/signup');
 app.use('/signup', signup);
 
+const join = require('./routers/join');
+app.use('/canva/join', join);
+
 const login = require('./routers/login');
 app.use('/', login);
 
