@@ -57,7 +57,6 @@ function incrementerNbUtilisateur(nbUtilisateurAvant){
 
 router.post('/available', function(req, res) {
     let data = req.body;
-    console.log("yeah")
     db.serialize(() => {
         const statement = db.prepare("SELECT pseudo FROM utilisateur WHERE pseudo=?");
         statement.get(data['login'], (err, result) => {
