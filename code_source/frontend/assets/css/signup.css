@@ -16,14 +16,14 @@ body {
     margin: 0;
 }
 
-h1 {
-    font-size: 140px;
-    text-align: center;
-    background: -webkit-linear-gradient(rgb(211, 13, 230), rgb(147, 236, 217));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
 h2 {
     color:white;
 }
+
+body {
+    height: 100%;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    overflow: hidden;
+  }
+  
+  

@@ -18,12 +18,18 @@
   
   <!-- Template Main CSS File -->
   <link href="assets/css/404.css" rel="stylesheet">
-  <link href="assets/css/background.css" rel="stylesheet">
+  <link href="assets/css/animation.css" rel="stylesheet">
 
 </head>
 
 <body>
-
+  
+  <script src="jquery.js"></script> 
+    <script> 
+    $(function(){
+      $("#includedContent").load("particles.html"); 
+    });
+    </script> 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
@@ -61,7 +67,7 @@
   
 	  <!-- ======= 404 Section ======= -->
     <section id="404" class="404">
-      <div class="container" >
+      <div id="redirect" class="container" >
         Click 
         <a href="/" class=""> here</a>
         to be redirected to the home page.
