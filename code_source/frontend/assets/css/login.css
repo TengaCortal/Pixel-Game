@@ -35,6 +35,60 @@ h2 {
     text-align: center;
 }
 
+#wrong{
+    color:rgb(143, 34, 34);
+}
+
+#logout{
+    position: relative;
+    width: 130px;
+    height: 60px;
+    margin: 20px;
+    line-height: 60px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: lowercase;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;;
+    
+    -webkit-text-fill-color: white;
+    color: #fff;
+    transition: var(--speed-normal);
+}
+
+  .logout{
+    font-size: 2vh;
+  }
+
+#logout:hover{
+    border: 1px solid transparent;
+    transition-delay: 0.8s;
+    background-size: 180px;
+    animation: animate var(--speed-fast) steps(8) forwards;
+}
+
+#logout {
+    border: 1px solid var(--color-purple);
+    position:fixed;
+    top:5vh;
+    right:5vh;
+  }
+
+  #logout:hover {
+    background: var(--color-purple) url(https://i.postimg.cc/FzBWFtKM/pixel2.png); 
+  }
+  
+  @keyframes animate {
+    0% {
+        background-position-y: 0;
+    }
+    100% {
+        background-position-y: -480px;
+    }
+}  
+
 /* Boîte Login */
 #box{
 	position:absolute;

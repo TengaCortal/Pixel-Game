@@ -66,12 +66,14 @@
       <div class="container" >
         <% if(logged) { %>
           <form action="/logout" method="get" role="form" class="php-email-form p-3 ">
-            <div class="text-center"><button type="submit">Logout</button></div>
+            <div id="logout" class="logout" >
+              <a style="text-decoration:none" href="/logout" type="submit" class="logout">Logout</a>
+            </div>
           </form>
         <% } else { %>
           <form action="/login" method="post" role="form" class="php-email-form p-3 ">
               <% if (error!=undefined && error) {%>
-                <p>Wrong credentials, try again!</p>
+                <p id="wrong">Wrong credentials, try again!</p>
               <% }%>
 
               <div id="box" class="box">
@@ -112,7 +114,7 @@
             
             <div class="text-center"><button type="submit">Submit</button></div> -->
           </form>
-        <% } %> 
+        <!-- <% } %> -->
         <!--End Contact Form -->
       </div>
     </section><!-- End Login Section -->

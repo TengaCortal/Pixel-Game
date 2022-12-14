@@ -57,7 +57,7 @@ h2 {
     -webkit-text-fill-color: white;
     color: #fff;
     transition: var(--speed-normal);
-    animation: float 1s infinite alternate-reverse;
+    animation: float 3s infinite alternate-reverse;
     }
 
     #Tenga:hover, #Adrien:hover, #Nathan:hover{
@@ -84,8 +84,8 @@ h2 {
         border-image-source: linear-gradient(#bcc6cc, #eee, #bcc6cc);
     }
   @keyframes float {
-    0%{transform: translateY(-10%);transition: ease 0.5s;}
-    25%{transform: translateY(10%);transition: ease 0.5s;}
-    50%{transform: translateX(-10%);transition: ease 0.5s;}
-    75%{transform: translateX(10%);transition: ease 0.5s;}
+    0%{transform: translateY(-80%);transition: ease 2s;}
+    25%{transform: translateY(160%);transition: ease 2s;}
+    50%{transform: translateX(-80%);transition: ease 2s;}
+    75%{transform: translateX(80%);transition: ease 2s;}
   }
