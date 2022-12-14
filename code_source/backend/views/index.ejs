@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,4 +95,105 @@
 
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Super Pixel Game!</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+
+  
+  <!-- Template Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/common.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>
+  
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img id="image_logo" src="assets/img/logo.png" alt=""> -->
+        <h1 id="title"> Super Pixel Game! </h1>
+
+
+    </div>
+
+    <div class="float-area">
+      <a href="/" ><img id="home" src="assets/img/home.png" class="floating-img"></a>
+    </div>
+  </header><!-- End Header -->
+
+
+  <main id="main">
+    <% if (!logged) { %>
+      <div id="login" class="login" >
+        <a style="text-decoration:none" href="/login" class="login">Login</a>
+      </div>
+    <% } else{ %>
+      <div id="logout" class="logout" >
+        <a style="text-decoration:none" href="/logout" class="logout">Logout</a>
+      </div>
+    <% } %>
+
+    <div id="create" class="create_canva" >
+      <a style="text-decoration:none" href="/canva/create" class="create_canva">Create a canva</a>
+    </div>
+
+    <div id="join" class="join_canva" >
+      <a style="text-decoration:none" href="/canva/join" class="join_canva">Join a canva</a>
+    </div>
+
+    <div id="pixelbox1" class="aboutus">
+      <a style="text-decoration:none" href="/aboutus.html" class="aboutus">about us</a>
+    </div>
+
+    <% if (logged){ %>
+      <section id="stat_user">
+        <h2 id="title"> Statistiques de <%= login %> </h2>
+        <div> Statut de l'utilisateur : <%= statutU%> </div>
+        <div> Nombre de participations à différents canvas : <%= nbParticipationCanvaU%> </div>
+        <div> Nombre de pixel posé : <%= nbTotalPixelPoseU%> </div>
+      </section>
+    <% } %>
+
+    <section id="stat_global">
+      <h2 id="title"> Statistiques globales </h2>
+      <div id="statsUser"> Nombre d'utilisateur inscrits sur le site : <%= nbUtilisateurSite%> </div>
+      <div id="statsCanva"> Nombre de canvas disponibles sur le site : <%= nbCanvaSite%> </div>
+    </section>
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+
+  </footer><!-- End Footer -->
+  
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+
+</body>
+
+>>>>>>> creationCss
 </html>
