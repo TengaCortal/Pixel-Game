@@ -50,9 +50,7 @@
       </div>
     <% } else{ %>
       <div id="logout" class="logout" >
-        <a href="/logout" class="logout">
-          <input type ="button" value="Logout">
-        </a>
+        <a style="text-decoration:none" href="/logout" class="logout">Logout</a>
       </div>
     <% } %>
 
@@ -64,8 +62,8 @@
       <a style="text-decoration:none" href="/canva/join" class="join_canva">Join a canva</a>
     </div>
 
-    <div id="pixelbox1">
-      <a style="text-decoration:none" href="javascript:void(0);">about us</a>
+    <div id="pixelbox1" class="aboutus">
+      <a style="text-decoration:none" href="/aboutus.html" class="aboutus">about us</a>
     </div>
 
     <% if (logged){ %>

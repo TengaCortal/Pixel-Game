@@ -15,26 +15,28 @@
     --speed-fast: 0.8s;
 }
 
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'VT323', monospace;
-    font-size: 40px;
-}
-
-body {
-    margin: 0;
+  font-size:4vh;
 }
 
 
-#stat_global, #stat_user {
+
+#stat_global{
   color:rgb(255, 255, 255);
+  position:fixed;
+  top: 30vh;
+  left: 100vh;
+}
+
+#stat_user {
+  color:rgb(255, 255, 255);
+  position:fixed;
+  top:  50vh;
+  left: 100vh;
 }
 
 
-#pixelbox1, #login, #create, #join{
+#create, #join{
     position: relative;
     width: 260px;
     height: 120px;
@@ -54,7 +56,30 @@ body {
 
 }
 
-#pixelbox1:hover, #login:hover, #create:hover, #join:hover{
+#login, #logout, #pixelbox1{
+    position: relative;
+    width: 130px;
+    height: 60px;
+    margin: 20px;
+    line-height: 60px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: lowercase;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;;
+    
+    -webkit-text-fill-color: white;
+    color: #fff;
+    transition: var(--speed-normal);
+}
+
+  .login, .logout, .aboutus{
+    font-size: 2vh;
+  }
+
+#pixelbox1:hover, #login:hover, #create:hover, #join:hover, #logout:hover{
     border: 1px solid transparent;
     transition-delay: 0.8s;
     background-size: 180px;
@@ -64,17 +89,34 @@ body {
 /* couleur bouton */
 #pixelbox1 {
   border: 1px solid var(--color-red);
+  position:fixed;
+  bottom:5vh;
+  left:87vh;
 }
+
 #login {
+  border: 1px solid var(--color-purple);
+  position:fixed;
+  top:5vh;
+  right:5vh;
+}
+
+#logout {
   border: 1px solid var(--color-purple);
 }
 
 #create {
   border: 1px solid var(--color-blue);
+  position:fixed;
+  top: 30vh;
+  left: 30vh;
 }
 
 #join {
   border: 1px solid var(--color-pink);
+  position:fixed;
+  top: 50vh;
+  left: 30vh;
 }
 
 #pixelbox1:hover {
@@ -82,6 +124,10 @@ body {
 }
 
 #login:hover {
+  background: var(--color-purple) url(https://i.postimg.cc/FzBWFtKM/pixel2.png); 
+}
+
+#logout:hover {
   background: var(--color-purple) url(https://i.postimg.cc/FzBWFtKM/pixel2.png); 
 }
 

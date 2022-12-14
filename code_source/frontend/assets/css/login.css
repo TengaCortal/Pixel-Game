@@ -13,19 +13,10 @@
     --speed-fast: 0.8s;
 }
 
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'VT323', monospace;
-    font-size: 20px;
+    font-size:2vh;
 }
 
-
-body {
-    margin: 0;
-}
 
 h1 {
   font-size:680% ;
