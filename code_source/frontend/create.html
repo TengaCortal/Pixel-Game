@@ -126,7 +126,12 @@
               $("#height").prop("disabled", true)
               $("#button").prop("disabled", true)
               $("#nameUse").remove()
-              $("#nom").after('<div id="nameUse"> Name already used </div>')
+              if (received === "OK undefined"){
+                $("#nom").after('<div id="nameUse"> You must be logged to create a canva </div>')
+              }
+              else{
+                $("#nom").after('<div id="nameUse"> Name already used </div>')
+              }
             }
           }
         }

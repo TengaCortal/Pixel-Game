@@ -38,7 +38,7 @@ router.post('/login', function (req, res, next) {
 							req.session.statut = result['statut'];
 							req.session.nbParticipationCanva = result['nbParticipationCanva'];
 							req.session.nbTotalPixelPose = result['nbTotalPixelPose'];
-							res.render('login.ejs', {logged: true, login: req.session.login, error: false});
+							res.redirect("/")
 						} else {
 							res.render('login.ejs', {logged: false, login: req.session.login, error: true});
 						}

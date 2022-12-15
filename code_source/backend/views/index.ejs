@@ -52,11 +52,13 @@
       <div id="logout" class="logout" >
         <a style="text-decoration:none" href="/logout" class="logout">Logout</a>
       </div>
+
+      <div id="create" class="create_canva" >
+        <a style="text-decoration:none" href="/canva/create" class="create_canva">Create a canva</a>
+      </div>
     <% } %>
 
-    <div id="create" class="create_canva" >
-      <a style="text-decoration:none" href="/canva/create" class="create_canva">Create a canva</a>
-    </div>
+    
 
     <div id="join" class="join_canva" >
       <a style="text-decoration:none" href="/canva/join" class="join_canva">Join a canva</a>
@@ -68,17 +70,17 @@
 
     <% if (logged){ %>
       <section id="stat_user">
-        <h2 id="title"> Statistiques de <%= login %> </h2>
-        <div> Statut de l'utilisateur : <%= statutU%> </div>
-        <div> Nombre de participations à différents canvas : <%= nbParticipationCanvaU%> </div>
-        <div> Nombre de pixel posé : <%= nbTotalPixelPoseU%> </div>
+        <h2 id="title"> Statistics of <%= login %> </h2>
+        <div> Status : <%= statutU%> </div>
+        <div> Number of participations in different canvas : <%= nbParticipationCanvaU%> </div>
+        <div> Number of pixels placed : <%= nbTotalPixelPoseU%> </div>
       </section>
     <% } %>
 
     <section id="stat_global">
-      <h2 id="title"> Statistiques globales </h2>
-      <div id="statsUser"> Nombre d'utilisateur inscrits sur le site : <%= nbUtilisateurSite%> </div>
-      <div id="statsCanva"> Nombre de canvas disponibles sur le site : <%= nbCanvaSite%> </div>
+      <h2 id="title"> Global statistics </h2>
+      <div id="statsUser"> Number of users registered on the site : <%= nbUtilisateurSite%> </div>
+      <div id="statsCanva"> Number of canvas available on the site : <%= nbCanvaSite%> </div>
     </section>
 
 
