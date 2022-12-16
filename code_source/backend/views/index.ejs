@@ -24,7 +24,7 @@
   <div id="stars"></div>
   <div id="stars2"></div>
   <div id="stars3"></div>
-  
+
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
@@ -43,6 +43,19 @@
   </header><!-- End Header -->
 
 
+  <a id ="SUPER" onclick="playSound()">S</a>
+
+  <audio id="myAudio">
+    <source src="/assets/sound/SUPER.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function playSound() {
+      var audio = document.getElementById("myAudio");
+      audio.play();
+    }
+  </script>
+  
   <main id="main">
     <% if (!logged) { %>
       <div id="login" class="login" >

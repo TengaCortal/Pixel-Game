@@ -21,6 +21,25 @@
   
   }
 
+  .float-area{
+    height:5vh;
+    /*display: flex;*/
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .floating-img{
+    transform: translateY(-10%);
+    animation: floater 1.5s infinite;
+    transition: ease 0.5s;
+  }
+
+  @keyframes floater {
+    0%{transform: translateY(-10%);transition: ease 0.5s;}
+    50%{transform: translateY(10%);transition: ease 0.5s;}
+  }
+
 h1 {
     text-align: center;
     background: -webkit-linear-gradient(rgb(211, 13, 230), rgb(147, 236, 217));
@@ -72,7 +91,7 @@ h3 {
     text-align:center;
     font-size: 12vh;
     background-color: #ec1840;
-    margin-top: 11.5%;
+    margin-top: 8%;
 }
 
 #redirect, #here{
