@@ -35,12 +35,12 @@ router.post('/available', function(req, res) {
     })
 })
 
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res, next){
 	let data = req.body;
-	var width = 1000;
-	var height = 1000;
+	var width = 10;
+	var height = 10;
 	if(data['nom']!=null && data['nom']!="" && data['theme']!=null && data['theme']!="" && data['width']!=0 && data['height']!=0){
-        db.serialize(() => {
+        db.serialize(async() => {
 			const statement = db.prepare('INSERT INTO canva (nom, theme, longueur, largeur) VALUES(?, ?, ?, ?);');
 			if(req.session.statut == "vip"){
 				width = data['width'];
@@ -58,25 +58,13 @@ router.post('/', function (req, res, next) {
 					}
 				}
 			});
-			statement.finalize();
-
-			var id = 0;
-			const statement3 = db.prepare('SELECT id FROM canva WHERE nom = ?');
-			statement3.get(data['nom'],(err, result) => {
-				if(err){
-					res.status(400).send('Name already used'); //faire une page propre
-				}else{
-					console.log(result);
-					id = result['id'];
-				}
-			});
-			statement3.finalize();
-
+			let id = await idCanva(data["nom"]);
 			for(let i = 0; i < width; i++){
-				for(let j = 0; i < height; j++){
+				for(let j = 0; j < height; j++){
 					const statement2 = db.prepare('INSERT INTO matrice (id, ligne, colonne, red, green, blue ) VALUES(?, ?, ?, 255,255,255);');
 					statement2.get(id,i,j, (err, result) => {
 						if(err){
+							console.log(err)
 							res.status(400).send('Name already used'); //faire une page propre
 						}
 					});
@@ -90,6 +78,26 @@ router.post('/', function (req, res, next) {
 		res.status(400).send('Bad request!');
 	}
 });
+
+db.query = function (sql, params) { //fonction pour permettre d'utiliser le await
+    sql = sql.replace(/SERIAL PRIMARY KEY/, "INTEGER PRIMARY KEY AUTOINCREMENT");
+    var that = this;
+    return new Promise(function (resolve, reject) {
+      that.all(sql, params, function (error, result) {
+        if (error)
+          reject(error);
+        else
+          resolve(result);
+      });
+    });
+};
+
+async function idCanva(nom){
+	let res;
+	let sql = `SELECT id FROM canva WHERE nom = "${nom}";`;
+	result = await db.query(sql)
+	return result[0]["id"];
+}
 
 function incrementerNbCanva(nbCanvaAvant){   
 	const statement = db.prepare('UPDATE site SET nbCanvaTotal = ?;');
