@@ -55,12 +55,36 @@ router.post('/', function (req, res, next) {
 							nbCanvaAvant = result["nbCanvaTotal"];
 							incrementerNbCanva(nbCanvaAvant);
 						});
-						url = '/canva/join/nom/'+data['nom']
-						res.redirect(url);
 					}
 				}
 			});
 			statement.finalize();
+
+			var id = 0;
+			const statement3 = db.prepare('SELECT id FROM canva WHERE nom = ?');
+			statement3.get(data['nom'],(err, result) => {
+				if(err){
+					res.status(400).send('Name already used'); //faire une page propre
+				}else{
+					console.log(result);
+					id = result['id'];
+				}
+			});
+			statement3.finalize();
+
+			for(let i = 0; i < width; i++){
+				for(let j = 0; i < height; j++){
+					const statement2 = db.prepare('INSERT INTO matrice (id, ligne, colonne, red, green, blue ) VALUES(?, ?, ?, 255,255,255);');
+					statement2.get(id,i,j, (err, result) => {
+						if(err){
+							res.status(400).send('Name already used'); //faire une page propre
+						}
+					});
+					statement2.finalize();
+				}
+			}
+			url = '/canva/join/nom/'+data['nom']
+			res.redirect(url);
         });
 	} else {
 		res.status(400).send('Bad request!');
