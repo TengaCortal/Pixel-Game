@@ -28,11 +28,8 @@ app.use(session({
 const signup = require('./routers/signup');
 app.use('/signup', signup);
 
-const join = require('./routers/join');
-app.use('/canva/join', join);
-
-const create = require('./routers/create');
-app.use('/canva/create', create);
+const canva = require('./routers/canva')
+app.use('/canva', canva)
 
 const login = require('./routers/login');
 app.use('/', login);

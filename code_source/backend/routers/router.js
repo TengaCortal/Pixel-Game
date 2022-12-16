@@ -2,10 +2,6 @@ const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 
-var statut = "0";
-var nbParticipationCanva = 0;
-var nbTotalPixelPose = 0;
-
 // connecting an existing database (handling errors)
 const db  = new sqlite3.Database('./db/pixel_war.db', (err) => {
 	if (err) {

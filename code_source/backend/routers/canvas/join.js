@@ -20,8 +20,7 @@ router.get("/", function(req, res) {
 		db.all("SELECT c.nom, c.theme, c.longueur, c.largeur FROM canva c;", (err, result) => {
 			res.render("join.ejs", {themes : list_theme, canvas : result});
 		})
-	})
-	    
+	})	    
 });
 
 router.get("/nom/:nom", async (req, res) =>{
