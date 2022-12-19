@@ -38,11 +38,11 @@
 
 #create, #join{
     position: relative;
-    width: 260px;
-    height: 120px;
-    margin: 20px;
-    line-height: 60px;
-    letter-spacing: 2px;
+    width: 30vh;
+    height: 15vh;
+    margin: 2vh;
+    line-height: 6vh;
+    letter-spacing: 0.4vh;
     text-decoration: none;
     text-transform: uppercase;
     text-align: center;
@@ -58,11 +58,11 @@
 
 #login, #logout, #pixelbox1{
     position: relative;
-    width: 130px;
-    height: 60px;
-    margin: 20px;
-    line-height: 60px;
-    letter-spacing: 2px;
+    width: 14vh;
+    height: 6vh;
+    margin: 2vh;
+    line-height: 6vh;
+    letter-spacing: 0.4vh;
     text-decoration: none;
     text-transform: lowercase;
     text-align: center;
@@ -90,36 +90,41 @@
 #pixelbox1 {
   border: 1px solid var(--color-red);
   position:fixed;
-  bottom:5vh;
-  left:87vh;
+  bottom:5%;
+  left:50%;
+  transform: translate(-50%,-50%);
 }
 
 #login {
   border: 1px solid var(--color-purple);
   position:fixed;
-  top:5vh;
-  right:5vh;
+  top:7%;
+  right:4%;
+  transform: translate(-50%,-50%);
 }
 
 #logout {
   border: 1px solid var(--color-purple);
   position:fixed;
-  top:5vh;
-  right:5vh;
+  top:7%;
+  right:4%;
+  transform: translate(-50%,-50%);
 }
 
 #create {
   border: 1px solid var(--color-blue);
   position:fixed;
-  top: 30vh;
-  left: 30vh;
+  top: 35%;
+  left: 25%;
+  transform: translate(-50%,-50%);
 }
 
 #join {
   border: 1px solid var(--color-pink);
   position:fixed;
-  top: 50vh;
-  left: 30vh;
+  top: 60%;
+  left: 25%;
+  transform: translate(-50%,-50%);
 }
 
 #pixelbox1:hover {
@@ -149,15 +154,4 @@
     100% {
         background-position-y: -480px;
     }
-}
-
-#SUPER {
-  background: -webkit-linear-gradient(rgb(211, 13, 230), rgb(147, 236, 217));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size:14vh;
-  position: fixed; 
-  top: 0.7vh;
-  left: 45.5vh;
-
 }

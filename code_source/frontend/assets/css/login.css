@@ -17,11 +17,6 @@
     font-size:2vh;
 }
 
-
-h1 {
-  font-size:680% ;
-}
-
 h2 {
     color:#fff;
 }
@@ -29,8 +24,8 @@ h2 {
 #text-center{
 	color:#fff;	
 	text-transform:uppercase;
-    font-size: 23px;
-    margin: -50px 0 80px 0;
+    font-size: 3vh;
+    margin: -5vh 0 9vh 0;
     display: block;
     text-align: center;
 }
@@ -40,12 +35,12 @@ h2 {
 }
 
 #logout{
-    position: relative;
-    width: 130px;
-    height: 60px;
-    margin: 20px;
-    line-height: 60px;
-    letter-spacing: 2px;
+  position: relative;
+  width: 14vh;
+  height: 6vh;
+  margin: 2vh;
+  line-height: 6vh;
+  letter-spacing: 0.4vh;
     text-decoration: none;
     text-transform: lowercase;
     text-align: center;
@@ -91,25 +86,25 @@ h2 {
 
 /* Boîte Login */
 #box{
-	position:absolute;
-	left:50%;
-	top:50%;
+	position:fixed;
+	left:100vh;
+	top:60vh;
 	transform: translate(-50%,-50%);
     background-color: rgba(0, 0, 0, 0.89);
 	border-radius:3px;
-	padding:70px 100px;
+	padding:8vh 11vh;
 }
 
 #input{
 	position:relative;
-	margin-bottom:25px;
+	margin-bottom:3vh;
 }
 
 #input label{
 	position:absolute;
 	top:0px;
 	left:0px;
-	font-size:16px;
+	font-size:2vh;
 	color:#fff;	
     pointer-event:none;
 	transition: all 0.5s ease-in-out;
@@ -119,8 +114,8 @@ h2 {
   border-bottom:1px solid #555;  
   background:transparent;
   width:100%;
-  padding:8px 0 5px 0;
-  font-size:16px;
+  padding:1.5vh 0 1vh 0;
+  font-size:2vh;
   color:#fff;
 }
 #input input:focus{ 
@@ -135,13 +130,14 @@ h2 {
 	outline: none;
     border: 0;
     color: #fff;
-	padding:10px 20px;
+	padding:2vh 3vh;
 	text-transform:uppercase;
-	margin-top:50px;
-	border-radius:2px;
+	margin-top:6vh;
+	border-radius:1vh;
 	cursor:pointer;
 	position:relative;
     left: 25%;
+    
 }
 
 #input input:focus ~ label,
@@ -157,14 +153,12 @@ h2 {
 	outline: none;
     border: 0;
     color: #fff;
-	padding:10px 20px;
+	padding:2vh 3vh;
 	text-transform:uppercase;
-	margin-top:50px;
-	border-radius:2px;
+	margin-top:6vh;
+	border-radius:1vh;
 	cursor:pointer;
   position:relative;
-    left:22%;
-    top:15%;
-    bottom: 15%;
-
+    left:49%;
+    transform: translate(-50%,-50%);
 }

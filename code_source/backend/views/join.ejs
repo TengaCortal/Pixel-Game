@@ -53,7 +53,7 @@
                     <% canvas.forEach(name =>{ %>
                     <% if (name.theme == theme.theme){ %>
                       <li>
-                        <a href="/canva/join/nom/<%= name.nom %>">
+                        <a id="canvas" href="/canva/join/nom/<%= name.nom %>">
                           <%= name.nom; %> (<%= name.largeur; %>x<%= name.longueur; %>)
                         </a>
                         <% } %>
@@ -67,7 +67,7 @@
           <% }); %>
         </ol>
       <% } else {%>
-        <div> There is not any canva created yet! You can create one by clicking on this <a href="/canva/create">link</a>.</div>
+        <div> There is no canva created yet! You can create one here: <a href="/canva/create"></a>.</div>
       <% } %>
 
   </main><!-- End #main -->

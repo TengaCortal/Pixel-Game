@@ -23,9 +23,9 @@ h1 {
 
   #home {
     width: 8vh;
-    position: absolute;
-    top: 5vh;
-    left: 5vh;
+    position:fixed;
+    top:5%;
+    left:5%;
   }
 
   .float-area{

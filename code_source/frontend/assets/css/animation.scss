@@ -12,7 +12,7 @@ $d: 4px;
 		&:nth-child(#{$i + 1}) {
 			transform: translate(random(100)*1vw, 
 													 random(100)*1vh);
-			background: hsl(random(360), 100%, 65%);
+			background: hsl(random(360), 100%, 100%);
 			animation-duration: $t;
 			animation-delay: -.01*random(100)*$t;
 		}
