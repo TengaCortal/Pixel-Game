@@ -63,7 +63,7 @@
         <div class="container" >
             <form action="/canva/create" method="post" role="form" class="php-email-form p-3 ">
                 <div id ="input" class="input-container form-group">
-                    <input type="text" name="nom" class="form-control" id="nom" required>
+                    <input type="text" name="nom" class="form-control" pattern="[a-zA-ZÀ-ÿ]*" id="nom" required>
                     <label>Name</label>
                 </div>
 
@@ -73,11 +73,11 @@
                 </div>
 
                 <div id ="input" class="form-group">
-                    <input type="number" class="form-control" name="width" id="width" placeholder="Width" required disabled>
+                    <input type="number" class="form-control" name="width" min="1" id="width" placeholder="Width" required disabled>
                 </div>
 
                 <div id ="input" class="form-group">
-                    <input type="number" class="form-control" name="height" id="height" placeholder="Height" required disabled>
+                    <input type="number" class="form-control" name="height" min="1" id="height" placeholder="Height" required disabled>
                 </div>
             
                 <div class="text-center"><button type="submit" id="button">Validate</button></div>

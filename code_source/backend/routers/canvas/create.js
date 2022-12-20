@@ -59,16 +59,10 @@ router.post('/', function (req, res, next){
 				}
 			});
 			let id = await idCanva(data["nom"]);
+			let sql = '';
 			for(let i = 0; i < width; i++){
 				for(let j = 0; j < height; j++){
-					const statement2 = db.prepare('INSERT INTO matrice (id, ligne, colonne, red, green, blue ) VALUES(?, ?, ?, 255,255,255);');
-					statement2.get(id,i,j, (err, result) => {
-						if(err){
-							console.log(err)
-							res.status(400).send('Name already used'); //faire une page propre
-						}
-					});
-					statement2.finalize();
+					db.get(`INSERT INTO matrice (id, ligne, colonne, red, green, blue ) VALUES(${id}, ${i}, ${j}, 255,255,255);`)
 				}
 			}
 			url = '/canva/join/nom/'+data['nom']
