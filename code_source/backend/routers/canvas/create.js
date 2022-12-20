@@ -37,8 +37,8 @@ router.post('/available', function(req, res) {
 
 router.post('/', function (req, res, next){
 	let data = req.body;
-	var width = 5;
-	var height = 5;
+	var width = 20;
+	var height = 20;
 	if(data['nom']!=null && data['nom']!="" && data['theme']!=null && data['theme']!="" && data['width']!=0 && data['height']!=0){
         db.serialize(async() => {
 			const statement = db.prepare('INSERT INTO canva (nom, theme, longueur, largeur) VALUES(?, ?, ?, ?);');
