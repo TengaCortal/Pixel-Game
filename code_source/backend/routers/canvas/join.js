@@ -27,7 +27,11 @@ router.get("/nom/:nom", async (req, res) =>{
 	let nomCanva = req.params.nom;
 	let existe = await canvaExists(nomCanva);
 	if (existe){
-		res.send(nomCanva); //à modifier plus tard
+		[width, height] = await getWidhtHeight(nomCanva);
+		console.log(width)
+		pixels = await getPixels(nomCanva);
+		console.log(result)
+		res.render("canva.ejs", {name: nomCanva, width: width, height: height}); 
 	} else{
 		res.sendFile("canva_inexistant.html", {root: "./../frontend"});
 	}
@@ -46,6 +50,19 @@ db.query = function (sql, params) { //fonction pour permettre d'utiliser le awai
       });
     });
 };
+
+async function getPixels(nom){
+	let sql = `SELECT ligne, colonne, red, green, blue FROM matrice m, canva c WHERE m.id = c.id and c.nom = "${nom}";`;
+	result = await db.query(sql);
+	return result;
+
+}
+
+async function getWidhtHeight(nom){
+	let sql = `SELECT largeur, longueur FROM canva WHERE nom = "${nom}";`;
+	result = await db.query(sql);
+	return [result[0]["largeur"], result[0]["longueur"]];
+}
 
 async function canvaExists(nom){
 	let res;
