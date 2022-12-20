@@ -25,33 +25,32 @@ h2 {
 
 #Tenga {
     position:fixed;
-    top: 10vh;
+    top: 50%;
     left: 30vh;
 }
 
 #Adrien {
     position: fixed;
-    top: -4.5vh;
+    top: 50%;
     left: 80vh;
 }
 
 #Nathan {
     position: fixed;
-    top: -19vh;
+    top: 50%;
     left: 130vh;
 }
 
 #Tenga, #Adrien, #Nathan {
-    position: relative;
-    width: 260px;
-    height: 120px;
-    margin: 20px;
-    line-height: 60px;
-    letter-spacing: 2px;
+    width: 29vh;
+    height: 14vh;
+    margin: 3vh;
+    line-height: 7vh;
+    letter-spacing: 0.5vh;
     text-decoration: none;
     text-transform: uppercase;
+    display:flex;
     text-align: center;
-    display: flex;
     justify-content: center;
     align-items: center;;
     -webkit-text-fill-color: white;
@@ -63,13 +62,13 @@ h2 {
     #Tenga:hover, #Adrien:hover, #Nathan:hover{
         border: 1px solid transparent;
         transition-delay: 0.8s;
-        background-size: 180px;
+        background-size: 20vh;
     }
 
     .border-gradient {
-        border: 10px solid;
+        border: 2vh solid;
         border-image-slice: 1;
-        border-width: 5px;
+        border-width: 0.7vh;
     }
 
     .border-gradient-gold {

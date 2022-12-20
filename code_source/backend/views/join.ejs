@@ -52,7 +52,7 @@
                   <ul>
                     <% canvas.forEach(name =>{ %>
                     <% if (name.theme == theme.theme){ %>
-                      <li>
+                      <li id="list">
                         <a id="canvas" href="/canva/join/nom/<%= name.nom %>">
                           <%= name.nom; %> (<%= name.largeur; %>x<%= name.longueur; %>)
                         </a>

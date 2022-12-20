@@ -11,8 +11,8 @@
 #text-center {
     color:white;
     text-transform:uppercase;
-    font-size: 23px;
-    margin: -50px 0 80px 0;
+    font-size: 3vh;
+    margin: -6vh 0 9vh 0;
     display: block;
     text-align: center;
 }
@@ -21,11 +21,11 @@
 #create{
 	position:fixed;
 	left:50%;
-	top:50%;
+	top:55%;
 	transform: translate(-50%,-50%);
     background-color: rgba(0, 0, 0, 0.89);
 	border-radius:3px;
-	padding:70px 100px;
+	padding:8vh 11vh;
 }
 
 #button {
@@ -34,7 +34,7 @@
 	outline: none;
     border: 0;
     color: #fff;
-	padding:10px 20px;
+	padding:2vh 3vh;
 	text-transform:uppercase;
 	margin-top:50px;
 	border-radius:2px;
@@ -45,14 +45,14 @@
 
 #input{
 	position:relative;
-	margin-bottom:25px;
+	margin-bottom:3vh;
 }
 
 #input label{
 	position:absolute;
 	top:0px;
 	left:0px;
-	font-size:16px;
+	font-size:2vh;
 	color:#fff;	
     pointer-event:none;
 	transition: all 0.5s ease-in-out;
@@ -63,8 +63,8 @@
     border-bottom:1px solid #555;  
     background:transparent;
     width:100%;
-    padding:8px 0 5px 0;
-    font-size:16px;
+    padding:1vh 0 0.7vh 0;
+    font-size:2vh;
     color:#fff;
   }
 
@@ -76,7 +76,7 @@ border-bottom:1px solid #e74c3c;
 
 #input input:focus ~ label,
 #input input:valid ~ label{
-	top:-12px;
-	font-size:12px;
+	top:-1.5vh;
+	font-size:1.5vh;
 	
 }
