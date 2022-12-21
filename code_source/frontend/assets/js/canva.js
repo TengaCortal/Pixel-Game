@@ -3,9 +3,9 @@ const couleurs = document.querySelector('#couleurs');
 const curseur = document.querySelector('#curseur');
 
 //On définit la taille du canva
-SUPER.width= width;
-SUPER.height= height;
 const tailleCellule = 10;
+SUPER.width= tailleCellule*width;
+SUPER.height= tailleCellule*height;
 
 
 //liste des couleurs qui compose la palette à laquelle l'utilisateur pourra accéder rapidement 
@@ -87,6 +87,20 @@ function addPixel(){
     return [x, y]
 }
 
+//affichage au chargement
+for (let i = 0; i < matrice.length; i+=5){
+        pixel = context.createImageData(tailleCellule, tailleCellule);
+
+        for (let j = 0; j < pixel.data.length; j += 4) {
+            // Modify pixel data
+            pixel.data[j+0] = matrice[i+2];
+            pixel.data[j+1] = matrice[i+3];
+            pixel.data[j+2] = matrice[i+4];
+            pixel.data[j+3] = 255;
+        }     
+
+        context.putImageData(pixel, matrice[i+0]*tailleCellule, matrice[i+1]*tailleCellule);    
+}
 
 
 /* 

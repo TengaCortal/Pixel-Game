@@ -28,10 +28,8 @@ router.get("/nom/:nom", async (req, res) =>{
 	let existe = await canvaExists(nomCanva);
 	if (existe){
 		[width, height] = await getWidhtHeight(nomCanva);
-		console.log(width)
 		pixels = await getPixels(nomCanva);
-		console.log(result)
-		res.render("canva.ejs", {name: nomCanva, width: width, height: height}); 
+		res.render("canva.ejs", {name: nomCanva, width: width, height: height, pixels: pixels}); 
 	} else{
 		res.sendFile("canva_inexistant.html", {root: "./../frontend"});
 	}

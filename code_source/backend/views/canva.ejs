@@ -27,11 +27,24 @@
         
         <div id="couleurs"></div>
 
+
+        <script> let matrice = []</script>
+
+        <% pixels.forEach(pixel =>{ %>
+            <script> 
+                matrice.push(<%= pixel.ligne %>)
+                matrice.push(<%= pixel.colonne %>)
+                matrice.push(<%= pixel.red %>)
+                matrice.push(<%= pixel.green %>)
+                matrice.push(<%= pixel.blue %>)
+            </script>
+        <% }); %>
+        
         <script> 
             let width = <%= width %>;
-            let height = <%= height %>;    
+            let height = <%= height %>;  
         </script>
-
+        
         <script src="/assets/js/canva.js"></script>
 
     </body>
