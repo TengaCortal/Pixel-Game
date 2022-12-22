@@ -26,10 +26,14 @@ router.get("/", function(req, res) {
 router.get("/nom/:nom", async (req, res) =>{
 	let nomCanva = req.params.nom;
 	let existe = await canvaExists(nomCanva);
+	duree = 1;
+	if (req.session.statut === "normal"){
+		duree = 5;
+	}
 	if (existe){
 		[width, height] = await getWidhtHeight(nomCanva);
 		pixels = await getPixels(nomCanva);
-		res.render("canva.ejs", {name: nomCanva, width: width, height: height, pixels: pixels}); 
+		res.render("canva.ejs", {name: nomCanva, width: width, height: height, pixels: pixels, duree: duree, logged: req.session.loggedin}); 
 	} else{
 		res.sendFile("canva_inexistant.html", {root: "./../frontend"});
 	}

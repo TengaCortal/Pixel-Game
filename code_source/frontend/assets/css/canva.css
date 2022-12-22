@@ -16,6 +16,7 @@ h1 {
   background: -webkit-linear-gradient(rgb(211, 13, 230), rgb(147, 236, 217));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  z-index: 99999;
 }
 
 #SUPER {
@@ -59,3 +60,23 @@ h1 {
   border: 1px solid #000;
   cursor: none;
 }/*# sourceMappingURL=canva.css.map */
+
+.overlay {
+  position: fixed; /* Fixer l'overlay à l'écran */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0); /* Ajouter une couleur de fond semi-transparente */
+  z-index: 9998; /* Placer l'overlay au-dessus de tous les autres éléments */
+}
+
+#overlay {
+  position: fixed; /* Fixer l'overlay à l'écran */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0); /* Ajouter une couleur de fond semi-transparente */
+  z-index: 9998; /* Placer l'overlay au-dessus de tous les autres éléments */
+}

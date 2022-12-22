@@ -1,6 +1,15 @@
 const SUPER = document.querySelector('#SUPER');
 const couleurs = document.querySelector('#couleurs');
 const curseur = document.querySelector('#curseur');
+// Définissez la durée du minuteur en minutes
+var duration = duree;
+
+var timer;
+var interval;
+
+
+// Récupérer l'élément HTML qui affichera le minuteur
+var display = document.querySelector('#timer');
 
 //On définit la taille du canva
 const tailleCellule = 10;
@@ -35,13 +44,35 @@ const context = SUPER.getContext('2d');
 
 const grid = SUPER.getContext('2d');
 
-curseur.addEventListener('click', function(event) {
+/*curseur.addEventListener('click', function(event) {
     addPixel()
-})
+})*/
 
 SUPER.addEventListener('click', function(){
     [x, y] = addPixel()
-    alert(context.getImageData(x, y, tailleCellule, tailleCellule).data[0])
+
+    // Créer l'élément overlay
+    var overlay = document.createElement('div');
+
+    // Ajouter une classe CSS à l'élément overlay
+    overlay.classList.add('overlay');
+
+    // Ajouter l'élément overlay au corps de la page
+    document.body.appendChild(overlay);
+
+    // Récupérer l'élément overlay
+    var overlay = document.querySelector('.overlay');
+    
+
+    // Exécuter la fonction qui supprime l'overlay une fois le minuteur terminé
+    setTimeout(function() {
+    overlay.parentNode.removeChild(overlay);
+    }, 1000*60*duration); // durée voulue
+
+    // Convertir la durée en secondes
+    timer = duration * 60;
+
+    interval = setInterval(startTimer, 1000);
 })
 
 function drawGrid(context, width, height, cellWidth, cellHeight){
@@ -82,8 +113,6 @@ function addPixel(){
     context.beginPath()
     context.fillStyle = couleurChoisie
     context.fillRect(x, y, tailleCellule, tailleCellule)
-    console.log(x)
-    console.log(y)
     return [x, y]
 }
 
@@ -101,6 +130,33 @@ for (let i = 0; i < matrice.length; i+=5){
 
         context.putImageData(pixel, matrice[i+0]*tailleCellule , matrice[i+1]*tailleCellule);    
 }
+
+
+
+
+// Définir une fonction qui mettra à jour le minuteur à chaque seconde
+function startTimer() {
+    // Convertir les secondes restantes en minutes et secondes
+    var minutes = parseInt(timer / 60, 10)
+    var seconds = parseInt(timer % 60, 10);
+
+    // Ajouter un zéro devant les minutes et secondes si nécessaire
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    // Afficher le minuteur dans l'élément HTML
+    display.textContent = minutes + ":" + seconds;
+
+    // Décrémenter le compteur de 1 seconde
+    --timer;
+
+    // Si le minuteur atteint 0, arrêter le minuteur
+    if (timer < 0) {
+        clearInterval(interval);
+    }
+}
+
+
 
 
 /* 
