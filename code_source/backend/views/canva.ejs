@@ -17,14 +17,20 @@
     
     <body>
 
-        <a style="text-decoration:none" href="/">
-            <h1 id="menu"> Super Pixel Game!</h1>
-        </a>
+        
 
         <% if (!logged){ %>
-            <div id="overlay"> <a style="text-decoration:none" href="/">
+        
+            <div class="overlay"> <a style="text-decoration:none" href="/">
                 <h1 id="menu"> Super Pixel Game!</h1>
             </a> </div>
+        
+        <% }else{ %>
+
+            <a id="menu" style="text-decoration:none" href="/">
+                <h1 > Super Pixel Game!</h1>
+            </a>
+        
         <% } %>
 
         <h2> <%= name %> </h2>
