@@ -37,8 +37,8 @@ router.post('/available', function(req, res) {
 
 router.post('/', function (req, res, next){
 	let data = req.body;
-	var width = 20;
-	var height = 20;
+	var width = 100;
+	var height = 100;
 	if(data['nom']!=null && data['nom']!="" && data['theme']!=null && data['theme']!="" && data['width']!=0 && data['height']!=0){
         db.serialize(async() => {
 			const statement = db.prepare('INSERT INTO canva (nom, theme, longueur, largeur) VALUES(?, ?, ?, ?);');
@@ -58,13 +58,6 @@ router.post('/', function (req, res, next){
 					}
 				}
 			});
-			let id = await idCanva(data["nom"]);
-			let sql = '';
-			for(let i = 0; i < width; i++){
-				for(let j = 0; j < height; j++){
-					db.get(`INSERT INTO matrice (id, ligne, colonne, red, green, blue ) VALUES(${id}, ${i}, ${j}, 255,255,255);`)
-				}
-			}
 			url = '/canva/join/nom/'+data['nom']
 			res.redirect(url);
         });

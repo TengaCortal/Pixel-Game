@@ -78,12 +78,12 @@ function addPixel(){
     //on récup les coordonnées de l'endroit clické par l'utilisateur
     const x = curseur.offsetLeft - SUPER.offsetLeft
     const y = curseur.offsetTop - SUPER.offsetTop //on soustrait la distance qu'il y a entre le haut de la page et le haut du canva
-
     //on fait apparaitre un "pixel" à ces coordonnées 
     context.beginPath()
     context.fillStyle = couleurChoisie
     context.fillRect(x, y, tailleCellule, tailleCellule)
-
+    console.log(x)
+    console.log(y)
     return [x, y]
 }
 
@@ -99,7 +99,7 @@ for (let i = 0; i < matrice.length; i+=5){
             pixel.data[j+3] = 255;
         }     
 
-        context.putImageData(pixel, matrice[i+0]*tailleCellule, matrice[i+1]*tailleCellule);    
+        context.putImageData(pixel, matrice[i+0]*tailleCellule , matrice[i+1]*tailleCellule);    
 }
 
 
