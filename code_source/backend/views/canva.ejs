@@ -5,35 +5,49 @@
         <meta charset="UTF-8" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Super Pixel Game!</title>
+        <link href="/assets/img/favicon.png" rel="icon">
         <!-- on importe une police de Google Font API qui est un service web qui offre des polices open source utilisable pour le web design facilement-->
-        <link 
-            href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
-            rel="stylesheet"
-        /> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!--Le stylesheet-->
         <link rel="stylesheet" href="/assets/css/canva.css" />
+        <link rel="stylesheet" href="/assets/css/common.css" />
+
     </head>
     
     <body>
 
-        
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
 
+        <header>
+            
+            <!--<a style="text-decoration:none" href="/index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+                <h1>Super Pixel Game!</h1>
+            </a>-->
+
+            <div class="float-area">
+                <a href="/" ><img id="home" src="/assets/img/home.png" class="floating-img"></a>
+            </div>
+        </header>
+        
+        
         <% if (!logged){ %>
         
             <div class="overlay"> <a style="text-decoration:none" href="/">
-                <h1 id="menu"> Super Pixel Game!</h1>
+                <h1 id="menu">Super Pixel Game!</h1>
             </a> </div>
         
         <% }else{ %>
 
             <a id="menu" style="text-decoration:none" href="/">
-                <h1 > Super Pixel Game!</h1>
+                <h1>Super Pixel Game!</h1>
             </a>
         
-        <% } %>
+        <% } %> 
+        
 
-        <h2> <%= name %> </h2>
+        <h2 id="title"> <%= name %> </h2>
 
         <div id="curseur"></div>
 

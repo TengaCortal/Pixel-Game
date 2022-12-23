@@ -102,7 +102,7 @@ SUPER.addEventListener('mousemove', function(event){
     const curseurTop = event.clientY - (curseur.offsetHeight/2) 
 
     curseur.style.left =  (Math.floor(curseurLeft / tailleCellule) * tailleCellule) + "px"
-    curseur.style.top =  (Math.floor(curseurTop / tailleCellule) * tailleCellule -4)  + "px"
+    curseur.style.top =  (Math.floor(curseurTop / tailleCellule) * tailleCellule)  + "px"
 })
 
 function addPixel(){
