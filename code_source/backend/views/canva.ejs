@@ -21,31 +21,15 @@
         <div id="stars3"></div>
 
         <header>
-            
-            <!--<a style="text-decoration:none" href="/index.html" class="logo d-flex align-items-center me-auto me-lg-0">
-                <h1>Super Pixel Game!</h1>
-            </a>-->
 
             <div class="float-area">
                 <a href="/" ><img id="home" src="/assets/img/home.png" class="floating-img"></a>
             </div>
-        </header>
-        
-        
-        <% if (!logged){ %>
-        
-            <div class="overlay"> <a style="text-decoration:none" href="/">
-                <h1 id="menu">Super Pixel Game!</h1>
-            </a> </div>
-        
-        <% }else{ %>
 
-            <a id="menu" style="text-decoration:none" href="/">
-                <h1>Super Pixel Game!</h1>
+            <a style="text-decoration:none" href="/">
+                <h1 id="menu">Super Pixel Game!</h1>
             </a>
-        
-        <% } %> 
-        
+        </header>
 
         <h2 id="title"> <%= name %> </h2>
 
@@ -53,7 +37,12 @@
 
         <canvas id="SUPER"></canvas>
         
-        <div id="time">Temps restant avant la pose d'un nouveau pixel: <p id="timer"></p></div>
+        <% if (logged){ %>
+            <div id="time"> Time left before you can put a new pixel: <p id="timer"></p></div>
+        <% }else{ %>
+            <div id="invite"> You must be logged to put pixels! You can go to the login section!</div>
+            <div class="overlay"></div>
+        <% } %> 
 
         <div id="couleurs"></div>
 
@@ -73,7 +62,8 @@
         <script> 
             let width = <%= width %>;
             let height = <%= height %>;
-            let duree = <%= duree %>;    
+            let duree = <%= duree %>;
+            let login = "<%= login %>";    
         </script>
         
         <script src="/assets/js/canva.js"></script>

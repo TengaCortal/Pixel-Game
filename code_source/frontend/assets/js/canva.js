@@ -1,19 +1,17 @@
 const SUPER = document.querySelector('#SUPER');
 const couleurs = document.querySelector('#couleurs');
 const curseur = document.querySelector('#curseur');
-const menu = document.querySelector('#menu')
 // Définissez la durée du minuteur en minutes
 var duration = duree;
 
 var interval;
 
-// Récupérer l'élément HTML qui affichera le minuteur
-var display = document.querySelector('#timer');
-
 //On définit la taille du canva
 const tailleCellule = 10;
 SUPER.width= tailleCellule*width;
 SUPER.height= tailleCellule*height;
+
+
 
 
 //liste des couleurs qui compose la palette à laquelle l'utilisateur pourra accéder rapidement 
@@ -56,8 +54,6 @@ SUPER.addEventListener('click', function(){
     // Ajouter une classe CSS à l'élément overlay
     overlay.classList.add('overlay');
 
-    overlay.appendChild(menu);
-
     // Ajouter l'élément overlay au corps de la page
     document.body.appendChild(overlay);
 
@@ -71,7 +67,7 @@ SUPER.addEventListener('click', function(){
     }, 1000*60*duration); // durée voulue
 
     // Convertir la durée en secondes
-    document.cookie=`timer=${duration * 60}`
+    document.cookie=`timer${login}=${duration * 60}`
 
     interval = setInterval(startTimer, 1000);
 })
@@ -119,7 +115,7 @@ function addPixel(){
 
 //affichage au chargement
 
-if (getCookie("timer")>0){
+if (getCookie(`timer${login}`)>0){
     interval = setInterval(startTimer, 1000);
 
     // Créer l'élément overlay
@@ -138,7 +134,7 @@ if (getCookie("timer")>0){
     // Exécuter la fonction qui supprime l'overlay une fois le minuteur terminé
     setTimeout(function() {
     overlay.parentNode.removeChild(overlay);
-    }, 1000*getCookie("timer")); // durée voulue
+    }, 1000*getCookie(`timer${login}`)); // durée voulue
 }
 
 for (let i = 0; i < matrice.length; i+=5){
@@ -161,21 +157,24 @@ for (let i = 0; i < matrice.length; i+=5){
 // Définir une fonction qui mettra à jour le minuteur à chaque seconde
 function startTimer() {
     // Convertir les secondes restantes en minutes et secondes
-    var minutes = parseInt(getCookie("timer") / 60, 10)
-    var seconds = parseInt(getCookie("timer") % 60, 10);
+    var minutes = parseInt(getCookie(`timer${login}`) / 60, 10)
+    var seconds = parseInt(getCookie(`timer${login}`) % 60, 10);
 
     // Ajouter un zéro devant les minutes et secondes si nécessaire
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
+    // Récupérer l'élément HTML qui affichera le minuteur
+    var display = document.querySelector('#timer');
+
     // Afficher le minuteur dans l'élément HTML
     display.textContent = minutes + ":" + seconds;
 
     // Décrémenter le compteur de 1 seconde
-    document.cookie = `timer=${getCookie("timer") - 1}`;
+    document.cookie = `timer${login}=${getCookie(`timer${login}`) - 1}`;
 
     // Si le minuteur atteint 0, arrêter le minuteur
-    if (getCookie("timer") < 0) {
+    if (getCookie(`timer${login}`) < 0) {
         clearInterval(interval);
         window.location.reload()
     }

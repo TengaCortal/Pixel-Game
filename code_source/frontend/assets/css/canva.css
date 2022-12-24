@@ -65,10 +65,14 @@ h1 {
   cursor: none;
 }/*# sourceMappingURL=canva.css.map */
 
-#title, #time, #timer{
+#title, #time, #timer, #invite{
   color:#fff;
   font-size: 4vh;
   text-align:center;
   margin-top: 6vh;
   margin-bottom: 4vh;
+}
+
+#invite{
+  z-index: 9999;
 }
