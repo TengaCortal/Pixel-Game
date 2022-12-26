@@ -10,6 +10,8 @@ var interval;
 const tailleCellule = 10;
 SUPER.width= tailleCellule*width;
 SUPER.height= tailleCellule*height;
+// var columns = width;
+// var rows = height
 
 
 
@@ -39,7 +41,6 @@ palette.forEach(color => {
 //partie canva
 const context = SUPER.getContext('2d');
 
-const grid = SUPER.getContext('2d');
 
 /*curseur.addEventListener('click', function(event) {
     addPixel()
@@ -72,37 +73,78 @@ SUPER.addEventListener('click', function(){
     interval = setInterval(startTimer, 1000);
 })
 
-function drawGrid(context, width, height, cellWidth, cellHeight){
-    context.beginPath()
-    context.strokeStyle = "#FFFFFF"
+// function drawGrid(){
+//     context.beginPath()
 
-    for(let i = 0; i < width; i++) {
-        context.moveTo(i*cellWidth, 0)
-        context.lineTo(i*cellWidth, height)
+//     // Iterate through rows and columns
+//     for (let i = 0; i < rows; i++) {
+//       for (let j = 0; j < columns; j++) {
+//         // Calculate x and y positions
+//         const x = j * tailleCellule;
+//         const y = i * tailleCellule;
+//         // Draw vertical line
+//         context.beginPath();
+//         context.moveTo(x, 0);
+//         context.lineTo(x, SUPER.height);
+//         //context.stroke();
+//         // Draw horizontal line
+//         context.beginPath();
+//         context.moveTo(0, y);
+//         context.lineTo(SUPER.width, y);
+//         //context.stroke();
+//       }
+//     }    
+// }
 
-    }
+var pixelPresent;
+var ancienX;
+var ancienY;
+var ancienneCouleur
 
-    for(let i = 0; i < height; i++) {
-        context.moveTo(0, i*cellHeight)
-        context.lineTo(width, i*cellHeight)
-
-    }
-    context.stroke()
+function drawMouseEffect(x, y) {
+    // Set fill color
+    context.fillStyle = couleurChoisie;
     
-}
 
-drawGrid(grid, SUPER.width, SUPER.width, tailleCellule, tailleCellule)
+    // Calculate grid position
+    const gridX = Math.floor(x / tailleCellule) * tailleCellule;
+    const gridY = Math.floor(y / tailleCellule) * tailleCellule;
+    ancienX = gridX;
+    ancienY = gridY;
+    // Fill grid square
+    if (context.getImageData(gridX, gridY, 1, 1).data[3]==0){
+        pixelPresent = false;
+    }
+    else{
+        pixelPresent = true;
+        r = context.getImageData(gridX, gridY, 1, 1).data[0]
+        g = context.getImageData(gridX, gridY, 1, 1).data[1]
+        b = context.getImageData(gridX, gridY, 1, 1).data[2]
+        ancienneCouleur = rgbToHex(r,g,b);
+    }
+    context.fillRect(gridX, gridY, tailleCellule, tailleCellule);
+  }
 
 SUPER.addEventListener('mousemove', function(event){
-    const curseurLeft = event.clientX - (curseur.offsetWidth/2) 
-    const curseurTop = event.clientY - (curseur.offsetHeight/2) 
-
-    curseur.style.left =  (Math.floor(curseurLeft / tailleCellule) * tailleCellule) + "px"
-    curseur.style.top =  (Math.floor(curseurTop / tailleCellule) * tailleCellule)  + "px"
+    if (pixelPresent){
+        context.beginPath();
+        context.fillStyle = ancienneCouleur
+        context.fillRect(ancienX, ancienY, tailleCellule, tailleCellule)
+    }
+    else{
+        // Clear canvas
+        context.clearRect(ancienX, ancienY, tailleCellule, tailleCellule);
+    }
+    // Draw grid
+    //drawGrid();
+    // Get mouse position
+    const x = event.offsetX;
+    const y = event.offsetY;
+    // Draw mouse effect
+    drawMouseEffect(x, y);
 })
 
 function addPixel(){
-
     //on récup les coordonnées de l'endroit clické par l'utilisateur
     const x = curseur.offsetLeft - SUPER.offsetLeft
     const y = curseur.offsetTop - SUPER.offsetTop //on soustrait la distance qu'il y a entre le haut de la page et le haut du canva
@@ -114,6 +156,7 @@ function addPixel(){
 }
 
 //affichage au chargement
+//drawGrid()
 
 if (getCookie(`timer${login}`)>0){
     interval = setInterval(startTimer, 1000);
@@ -186,9 +229,16 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift()
 }
 
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+  
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
 
-
-/* 
+  /* 
 First, create a canvas element in your HTML file:
 <canvas id="myCanvas" width="500" height="300"></canvas>
 
