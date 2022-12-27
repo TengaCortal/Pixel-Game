@@ -36,8 +36,25 @@ palette.forEach(color => {
     })
 })
 
-SUPER.addEventListener('click', function(){
-    [x, y] = addPixel()
+function addPixel(x, y){
+    //on récup les coordonnées de l'endroit clické par l'utilisateur
+    // Calculate grid position
+    const gridX = Math.floor(x / tailleCellule) * tailleCellule;
+    const gridY = Math.floor(y / tailleCellule) * tailleCellule; //on soustrait la distance qu'il y a entre le haut de la page et le haut du canva
+    //on fait apparaitre un "pixel" à ces coordonnées 
+    context.beginPath()
+    context.fillStyle = couleurChoisie
+    // Fill grid square
+    context.fillRect(gridX, gridY, tailleCellule, tailleCellule);
+}
+
+SUPER.addEventListener('click', function(event){
+
+    // Get mouse position
+    const posX = event.offsetX;
+    const posY = event.offsetY;
+
+    addPixel(posX, posY)
 
     // Créer l'élément overlay
     var overlay = document.createElement('div');
@@ -99,17 +116,6 @@ SUPER.addEventListener('mousemove', function(event){
     // Draw mouse effect
     drawMouseEffect(x, y);
 })
-
-function addPixel(){
-    //on récup les coordonnées de l'endroit clické par l'utilisateur
-    const x = curseur.offsetLeft - SUPER.offsetLeft
-    const y = curseur.offsetTop - SUPER.offsetTop //on soustrait la distance qu'il y a entre le haut de la page et le haut du canva
-    //on fait apparaitre un "pixel" à ces coordonnées 
-    context.beginPath()
-    context.fillStyle = couleurChoisie
-    context.fillRect(x, y, tailleCellule, tailleCellule)
-    return [x, y]
-}
 
 //affichage au chargement
 

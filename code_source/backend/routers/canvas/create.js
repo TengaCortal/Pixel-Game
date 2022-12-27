@@ -17,52 +17,57 @@ const db  = new sqlite3.Database('./db/pixel_war.db', (err) => {
 
 router.post('/available', function(req, res) {
     let data = req.body;
-    db.serialize(() => {
-        const statement = db.prepare("SELECT nom FROM canva WHERE nom=?");
-        statement.get(data['nom'], (err, result) => {
-            if(err){
-                next(err);
-            } else {
-                if(typeof(result)==="undefined"){
+	if (req.session.loggedin){
+		db.serialize(() => {
+		const statement = db.prepare("SELECT nom FROM canva WHERE nom=?");
+		statement.get(data['nom'], (err, result) => {
+			if(err){
+				next(err);
+			} else {
+				if(typeof(result)==="undefined"){
 					statut = "OK " + req.session.statut;
-                    res.status(200).send(statut);
-                } else{
-                    res.status(200).send("KO");
-                }
-            }
-        });
-        statement.finalize();
-    })
+					res.status(200).send(statut);
+				} else{
+					res.status(200).send("KO");
+				}
+			}
+		});
+		statement.finalize();
+		})
+	}
 })
 
 router.post('/', function (req, res, next){
-	let data = req.body;
-	var width = 100;
-	var height = 100;
-	if(data['nom']!=null && data['nom']!="" && data['theme']!=null && data['theme']!="" && data['width']!=0 && data['height']!=0){
-        db.serialize(async() => {
-			const statement = db.prepare('INSERT INTO canva (nom, theme, longueur, largeur) VALUES(?, ?, ?, ?);');
-			if(req.session.statut == "vip"){
-				width = data['width'];
-				height = data['height'];
-			}
-			statement.get(data['nom'], data['theme'], width, height, (err, result) => {
-				if(err){
-					res.status(400).send('Name already used'); //faire une page propre
-				} else {
-                    if(req.session.loggedin){
-						db.get('SELECT * FROM site;', (err, result) => {
-							nbCanvaAvant = result["nbCanvaTotal"];
-							incrementerNbCanva(nbCanvaAvant);
-						});
-					}
+	if (req.session.loggedin){
+		let data = req.body;
+		var width = 100;
+		var height = 100;
+		req.session.nbCanvaCree = req.session.nbCanvaCree + 1;
+		if(data['nom']!=null && data['nom']!="" && data['theme']!=null && data['theme']!="" && data['width']!=0 && data['height']!=0){
+			db.serialize(async() => {
+				const statement = db.prepare('INSERT INTO canva (nom, theme, longueur, largeur) VALUES(?, ?, ?, ?);');
+				if(req.session.statut == "vip"){
+					width = data['width'];
+					height = data['height'];
 				}
+				statement.get(data['nom'], data['theme'], width, height, (err, result) => {
+					if(err){
+						res.status(400).send('Name already used'); //faire une page propre
+					} else {
+						if(req.session.loggedin){
+							db.get('SELECT * FROM site;', (err, result) => {
+								nbCanvaAvant = result["nbCanvaTotal"];
+								incrementerNbCanva(nbCanvaAvant);
+							});
+						}
+					}
+				});
+				url = '/canva/join/nom/'+data['nom']
+				res.redirect(url);
 			});
-			url = '/canva/join/nom/'+data['nom']
-			res.redirect(url);
-        });
-	} else {
-		res.status(400).send('Bad request!');
+		} else {
+			res.status(400).send('Bad request!');
+		}
 	}
 });
 
@@ -93,7 +98,12 @@ function incrementerNbCanva(nbCanvaAvant){
 }
 
 router.get('/', function (req, res) {
-	res.sendFile('create.html', {root: "../frontend"});
+	if (req.session.loggedin){
+		res.sendFile('create.html', {root: "../frontend"});
+	}
+	else{
+		res.redirect("/")
+	}
 });
 
 

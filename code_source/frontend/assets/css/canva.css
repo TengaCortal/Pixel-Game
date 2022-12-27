@@ -58,16 +58,6 @@ h1 {
   border-color: rgb(146, 146, 146);
 }
 
-#curseur {
-  position: absolute;
-  box-sizing: border-box;
-  width: 10px;
-  height: 10px;
-  background-color: transparent;
-  border: 1px solid #000;
-  cursor: none;
-}/*# sourceMappingURL=canva.css.map */
-
 #title, #time, #timer, #invite{
   color:#fff;
   font-size: 4vh;

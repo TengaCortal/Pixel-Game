@@ -23,7 +23,7 @@ router.post('/login', function (req, res, next) {
 		
 		db.serialize(() => {
 			// check if the password is okay
-			const statement = db.prepare("SELECT pseudo, motDePasse, statut, nbParticipationCanva, nbTotalPixelPose FROM utilisateur WHERE pseudo=?;");
+			const statement = db.prepare("SELECT pseudo, motDePasse, statut, nbCanvaCree, nbTotalPixelPose FROM utilisateur WHERE pseudo=?;");
 			statement.get(data['login'], (err, result) => {
 				if(err){
 					next(err);
@@ -36,7 +36,7 @@ router.post('/login', function (req, res, next) {
 							req.session.loggedin=true;
 							req.session.login = result['pseudo'];
 							req.session.statut = result['statut'];
-							req.session.nbParticipationCanva = result['nbParticipationCanva'];
+							req.session.nbCanvaCree = result['nbCanvaCree'];
 							req.session.nbTotalPixelPose = result['nbTotalPixelPose'];
 							res.redirect("/")
 						} else {
@@ -59,8 +59,12 @@ router.get('/login', function (req, res) {
 });
 
 router.get('/logout', function (req, res) {
-	req.session.destroy();
-	res.redirect('/login');
+	const statement = db.prepare('UPDATE utilisateur SET nbCanvaCree = ? WHERE pseudo = ?;');
+    statement.get(req.session.nbCanvaCree, req.session.login, (err, result) => {
+		req.session.destroy();
+		res.redirect('/login');
+	});
+    statement.finalize();
 });
 
 module.exports = router;

@@ -20,7 +20,7 @@ router.post('/', function (req, res) {
     let aCree = false;
     if(data['login']!=null && data['login']!="" && data['password']!=null && data['password']!=""){
         db.serialize(() => {
-			const statement = db.prepare('INSERT INTO utilisateur (pseudo, motDePasse, statut, nbParticipationCanva, nbTotalPixelPose) VALUES(?, ?, "normal", 0, 0);');
+			const statement = db.prepare('INSERT INTO utilisateur (pseudo, motDePasse, statut, nbCanvaCree, nbTotalPixelPose) VALUES(?, ?, "normal", 0, 0);');
 			statement.get(data['login'], md5(data['password']), (err, result) => {
 				if(err){
 					res.status(400).send('Login déjà utilisé!'); //faire une page propre
@@ -28,7 +28,7 @@ router.post('/', function (req, res) {
                     req.session.login = data["login"];
                     req.session.loggedin = true;
                     req.session.statut = "normal";
-                    req.session.nbParticipationCanva = 0;
+                    req.session.nbCanvaCree = 0;
                     req.session.nbTotalPixelPose = 0;
                     db.get('SELECT * FROM site;', (err, result) => {
                         nbUtilisateurAvant = result["nbUtilisateurTotal"];
