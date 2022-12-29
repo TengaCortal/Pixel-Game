@@ -42,7 +42,7 @@ palette.forEach(color => {
     couleur.addEventListener('click', () => {
         couleurChoisie = color 
     })
-})  
+})
 
  SUPER.addEventListener('click', function(event){
     const x = event.offsetX;
@@ -77,7 +77,6 @@ palette.forEach(color => {
 
     // Récupérer l'élément overlay
     var overlay = document.querySelector('.overlay');
-    
 
     // Exécuter la fonction qui supprime l'overlay une fois le minuteur terminé
     setTimeout(function() {

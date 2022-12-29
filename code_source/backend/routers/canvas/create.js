@@ -17,22 +17,24 @@ const db  = new sqlite3.Database('./db/pixel_war.db', (err) => {
 
 router.post('/available', function(req, res) {
     let data = req.body;
-    db.serialize(() => {
-        const statement = db.prepare("SELECT nom FROM canva WHERE nom=?");
-        statement.get(data['nom'], (err, result) => {
-            if(err){
-                next(err);
-            } else {
-                if(typeof(result)==="undefined"){
+	if (req.session.loggedin){
+		db.serialize(() => {
+		const statement = db.prepare("SELECT nom FROM canva WHERE nom=?");
+		statement.get(data['nom'], (err, result) => {
+			if(err){
+				next(err);
+			} else {
+				if(typeof(result)==="undefined"){
 					statut = "OK " + req.session.statut;
-                    res.status(200).send(statut);
-                } else{
-                    res.status(200).send("KO");
-                }
-            }
-        });
-        statement.finalize();
-    })
+					res.status(200).send(statut);
+				} else{
+					res.status(200).send("KO");
+				}
+			}
+		});
+		statement.finalize();
+		})
+	}
 })
 
 router.post('/', function (req, res, next){
@@ -65,6 +67,20 @@ router.post('/', function (req, res, next){
 						})
 					}
 				}
+				statement.get(data['nom'], data['theme'], width, height, (err, result) => {
+					if(err){
+						res.status(400).send('Name already used'); //faire une page propre
+					} else {
+						if(req.session.loggedin){
+							db.get('SELECT * FROM site;', (err, result) => {
+								nbCanvaAvant = result["nbCanvaTotal"];
+								incrementerNbCanva(nbCanvaAvant);
+							});
+						}
+					}
+				});
+				url = '/canva/join/nom/'+data['nom']
+				res.redirect(url);
 			});
 			statement.finalize();
 	
@@ -110,7 +126,12 @@ function incrementerNbCanvaUtilisateur(nbCanvaAvant, login){
 }
 
 router.get('/', function (req, res) {
-	res.sendFile('create.html', {root: "../frontend"});
+	if (req.session.loggedin){
+		res.sendFile('create.html', {root: "../frontend"});
+	}
+	else{
+		res.redirect("/")
+	}
 });
 
 

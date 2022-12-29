@@ -59,8 +59,12 @@ router.get('/login', function (req, res) {
 });
 
 router.get('/logout', function (req, res) {
-	req.session.destroy();
-	res.redirect('/login');
+	const statement = db.prepare('UPDATE utilisateur SET nbCanvaCree = ? WHERE pseudo = ?;');
+    statement.get(req.session.nbCanvaCree, req.session.login, (err, result) => {
+		req.session.destroy();
+		res.redirect('/login');
+	});
+    statement.finalize();
 });
 
 module.exports = router;
