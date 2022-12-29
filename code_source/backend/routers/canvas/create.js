@@ -51,13 +51,23 @@ router.post('/', function (req, res, next){
 					res.status(400).send('Name already used'); //faire une page propre
 				} else {
                     if(req.session.loggedin){
-						db.get('SELECT * FROM site;', (err, result) => {
-							nbCanvaAvant = result["nbCanvaTotal"];
-							incrementerNbCanva(nbCanvaAvant);
-						});
+						db.serialize(async() => {
+							const statement2 = db.prepare('SELECT * FROM utilisateur WHERE pseudo = ?;');
+							statement2.get(req.session.login , (err, result) => {
+								nbCanvaAvant = result["nbCanvaCree"];
+								incrementerNbCanvaUtilisateur(nbCanvaAvant,req.session.login);
+							});
+							statement2.finalize();
+							db.get('SELECT * FROM site;', (err, result) => {
+								nbCanvaAvant = result["nbCanvaTotal"];
+								incrementerNbCanva(nbCanvaAvant);
+							});
+						})
 					}
 				}
 			});
+			statement.finalize();
+	
 			url = '/canva/join/nom/'+data['nom']
 			res.redirect(url);
         });
@@ -79,6 +89,7 @@ db.query = function (sql, params) { //fonction pour permettre d'utiliser le awai
     });
 };
 
+//utile ?
 async function idCanva(nom){
 	let res;
 	let sql = `SELECT id FROM canva WHERE nom = "${nom}";`;
@@ -89,6 +100,12 @@ async function idCanva(nom){
 function incrementerNbCanva(nbCanvaAvant){   
 	const statement = db.prepare('UPDATE site SET nbCanvaTotal = ?;');
 	statement.get(nbCanvaAvant + 1, (err, result) => {});
+	statement.finalize();
+}
+
+function incrementerNbCanvaUtilisateur(nbCanvaAvant, login){   
+	const statement = db.prepare('UPDATE utilisateur SET nbCanvaCree = ? WHERE pseudo = ?;');
+	statement.get(nbCanvaAvant + 1, login, (err, result) => {});
 	statement.finalize();
 }
 

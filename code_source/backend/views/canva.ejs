@@ -11,7 +11,7 @@
         <!--Le stylesheet-->
         <link rel="stylesheet" href="/assets/css/canva.css" />
         <link rel="stylesheet" href="/assets/css/common.css" />
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     </head>
     
     <body>
@@ -60,13 +60,15 @@
         <% }); %>
         
         <script> 
+            
             let width = <%= width %>;
             let height = <%= height %>;
             let duree = <%= duree %>;
-            let login = "<%= login %>";    
+            let login = "<%= login %>";
+            let name = "<%= name %>";
         </script>
         
         <script src="/assets/js/canva.js"></script>
-
+    
     </body>
 </html>

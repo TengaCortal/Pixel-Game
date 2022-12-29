@@ -23,19 +23,27 @@ router.get('/', function (req, res) {
 	var nbUtilisateur = 0;
 	var nbCanva = 0;
 	var statut = "0";
-	var nbParticipationCanva = 0;
+	var nbCanvaCree = 0;
 	var nbTotalPixelPose = 0;
-	db.get('SELECT * FROM site;', (err, result) => {
-		nbUtilisateur = result["nbUtilisateurTotal"];
-		nbCanva = result["nbCanvaTotal"];
-		if (req.session.loggedin){
-			statut = req.session.statut;
-			nbParticipationCanva = req.session.nbParticipationCanva;
-			nbTotalPixelPose = req.session.nbTotalPixelPose;
-		}
-		res.render('index.ejs', {logged: req.session.loggedin, login: req.session.login, nbUtilisateurSite: nbUtilisateur, nbCanvaSite : nbCanva,
-								statutU: statut, nbTotalPixelPoseU: nbTotalPixelPose, nbParticipationCanvaU: nbParticipationCanva});
-	});
+	db.serialize(async() => {
+		db.get('SELECT * FROM site;', (err, result) => {
+			nbUtilisateur = result["nbUtilisateurTotal"];
+			nbCanva = result["nbCanvaTotal"];
+			if (req.session.loggedin){
+				statut = req.session.statut;
+				const statement = db.prepare('SELECT * FROM utilisateur WHERE pseudo = ?');
+				statement.get(req.session.login, (err, result) => {
+					nbCanvaCree = result['nbCanvaCree'];
+					nbTotalPixelPose = result['nbTotalPixelPose'];
+					res.render('index.ejs', {logged: req.session.loggedin, login: req.session.login, nbUtilisateurSite: nbUtilisateur, nbCanvaSite : nbCanva, statutU: statut, nbTotalPixelPoseU: nbTotalPixelPose, nbCanvaCreeU: nbCanvaCree});
+				})
+				statement.finalize();
+				
+			}else{
+				res.render('index.ejs', {logged: req.session.loggedin, login: req.session.login, nbUtilisateurSite: nbUtilisateur, nbCanvaSite : nbCanva, statutU: statut, nbTotalPixelPoseU: nbTotalPixelPose, nbCanvaCreeU: nbCanvaCree});
+			}
+		});
+	})
 	
 });
 

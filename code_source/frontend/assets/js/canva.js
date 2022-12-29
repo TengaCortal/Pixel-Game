@@ -1,18 +1,27 @@
 const SUPER = document.querySelector('#SUPER');
 const couleurs = document.querySelector('#couleurs');
 const curseur = document.querySelector('#curseur');
+
+var nom = name;
 // Définissez la durée du minuteur en minutes
 var duration = duree;
-
 var interval;
+
+//partie canva
+const context = SUPER.getContext('2d');
+
+// chargement de Jquery
+var s = document.createElement("script"); 
+s.src = "jquery.min.js"; 
+s.onload = function(e){ 
+    console.log("Load jq complete !")
+};
+document.head.appendChild(s);
 
 //On définit la taille du canva
 const tailleCellule = 10;
 SUPER.width= tailleCellule*width;
 SUPER.height= tailleCellule*height;
-
-
-
 
 //liste des couleurs qui compose la palette à laquelle l'utilisateur pourra accéder rapidement 
 const palette = [ 
@@ -32,21 +41,30 @@ palette.forEach(color => {
 
     couleur.addEventListener('click', () => {
         couleurChoisie = color 
-        //couleur.innerHTML = `<i class="fa-solid fa-check"></i>`
     })
 })  
 
-//partie canva
-const context = SUPER.getContext('2d');
-
-const grid = SUPER.getContext('2d');
-
-/*curseur.addEventListener('click', function(event) {
-    addPixel()
-})*/
-
-SUPER.addEventListener('click', function(){
-    [x, y] = addPixel()
+ SUPER.addEventListener('click', function(event){
+    const x = event.offsetX;
+    const y = event.offsetY;
+    //ajout à la BD
+    const gridX = Math.floor(x / tailleCellule);
+    const gridY = Math.floor(y / tailleCellule);
+    //Store the values when the mouse will quit the pixel we are on
+    let r = context.getImageData(gridX*tailleCellule, gridY*tailleCellule, 1, 1).data[0]
+    let g = context.getImageData(gridX*tailleCellule, gridY*tailleCellule, 1, 1).data[1]
+    let b = context.getImageData(gridX*tailleCellule, gridY*tailleCellule, 1, 1).data[2]
+    $.ajax({
+        type: 'POST',
+        url: '/canva/join/addPixelToDB',
+        data: {nom:nom, ligne:gridX, colonne:gridY, r:r, g:g, b:b, login:login},
+        error: function(){
+            alert('Problème AJAX')
+        },
+        success: function(){
+            alert('Requète envoyée')
+        }
+    });
 
     // Créer l'élément overlay
     var overlay = document.createElement('div');
@@ -72,37 +90,45 @@ SUPER.addEventListener('click', function(){
     interval = setInterval(startTimer, 1000);
 })
 
-function drawGrid(context, width, height, cellWidth, cellHeight){
-    context.beginPath()
-    context.strokeStyle = "#FFFFFF"
+var ancienX;
+var ancienY;
+var ancienneCouleur
 
-    for(let i = 0; i < width; i++) {
-        context.moveTo(i*cellWidth, 0)
-        context.lineTo(i*cellWidth, height)
+function drawMouseEffect(x, y) {
+    // Set fill color
+    context.fillStyle = couleurChoisie;
 
-    }
+    // Calculate grid position
+    const gridX = Math.floor(x / tailleCellule) * tailleCellule;
+    const gridY = Math.floor(y / tailleCellule) * tailleCellule;
+    ancienX = gridX;
+    ancienY = gridY;
 
-    for(let i = 0; i < height; i++) {
-        context.moveTo(0, i*cellHeight)
-        context.lineTo(width, i*cellHeight)
+    //Store the values when the mouse will quit the pixel we are on
+    r = context.getImageData(gridX, gridY, 1, 1).data[0]
+    g = context.getImageData(gridX, gridY, 1, 1).data[1]
+    b = context.getImageData(gridX, gridY, 1, 1).data[2]
+    ancienneCouleur = rgbToHex(r,g,b); 
 
-    }
-    context.stroke()
-    
+    // Fill grid square
+    context.fillRect(gridX, gridY, tailleCellule, tailleCellule);      
 }
 
-drawGrid(grid, SUPER.width, SUPER.width, tailleCellule, tailleCellule)
-
 SUPER.addEventListener('mousemove', function(event){
-    const curseurLeft = event.clientX - (curseur.offsetWidth/2) 
-    const curseurTop = event.clientY - (curseur.offsetHeight/2) 
+    //redraw the previous pixel we were on
+    context.beginPath();
+    context.fillStyle = ancienneCouleur
+    context.fillRect(ancienX, ancienY, tailleCellule, tailleCellule)
 
-    curseur.style.left =  (Math.floor(curseurLeft / tailleCellule) * tailleCellule) + "px"
-    curseur.style.top =  (Math.floor(curseurTop / tailleCellule) * tailleCellule)  + "px"
+    // Get mouse position
+    const x = event.offsetX;
+    const y = event.offsetY;
+
+    // Draw mouse effect
+    drawMouseEffect(x, y);
 })
 
 function addPixel(){
-
     //on récup les coordonnées de l'endroit clické par l'utilisateur
     const x = curseur.offsetLeft - SUPER.offsetLeft
     const y = curseur.offsetTop - SUPER.offsetTop //on soustrait la distance qu'il y a entre le haut de la page et le haut du canva
@@ -137,6 +163,23 @@ if (getCookie(`timer${login}`)>0){
     }, 1000*getCookie(`timer${login}`)); // durée voulue
 }
 
+var pixelBlanc = context.createImageData(tailleCellule, tailleCellule);
+for (let j = 0; j < pixelBlanc.data.length; j += 4) {
+    // Modify pixel data
+    pixelBlanc.data[j+0] = 255;
+    pixelBlanc.data[j+1] = 255;
+    pixelBlanc.data[j+2] = 255;
+    pixelBlanc.data[j+3] = 255;
+}
+
+//initialisation par défaut à tous les pixels blancs
+for (let i = 0; i < width; i+=1){
+    for (let j = 0; j < height; j+=1){
+        context.putImageData(pixelBlanc, i*tailleCellule, j*tailleCellule)
+    }
+}
+
+//affichage des pixels qui sont en BD
 for (let i = 0; i < matrice.length; i+=5){
         pixel = context.createImageData(tailleCellule, tailleCellule);
 
@@ -186,47 +229,11 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift()
 }
 
-
-
-/* 
-First, create a canvas element in your HTML file:
-<canvas id="myCanvas" width="500" height="300"></canvas>
-
-Next, use JavaScript to get a reference to the canvas element and its drawing context:
-var canvas = document.getElementById("myCanvas");
-var context = canvas.getContext("2d");
-
-Then, use the canvas drawing context to draw on the canvas. For example, you can use the fillRect method to draw a filled rectangle:
-context.fillRect(10, 10, 50, 50);
-
-Once you have drawn on the canvas, you can convert the canvas pixels to a data URL using the toDataURL method:
-var dataURL = canvas.toDataURL();
-
-To store the data URL in a database, you will need to send it to a server-side script using an HTTP request (such as an AJAX request). The server-side script can then store the data URL in the database.
-Here is an example of how you could send the data URL to a server-side script using an AJAX request:
-
-$.ajax({
-  type: "POST",
-  url: "save_image.php",
-  data: {
-    dataURL: dataURL
-  }
-});
-
-On the server side, you can use a server-side language like PHP to receive the data URL and store it in a database. Here is an example of how you could do this using PHP:
-
-<?php
-
-// Connect to the database
-$db = new mysqli("localhost", "username", "password", "database");
-
-// Escape the data URL to prevent SQL injection attacks
-$dataURL = $db->real_escape_string($_POST["dataURL"]);
-
-// Insert the data URL into the database
-$query = "INSERT INTO images (data_url) VALUES ('$dataURL')";
-$result = $db->query($query);
-
-?>
-
-*/
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+  
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}

@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 // set the server host and port
-const port = 3001;
+const port = 3000;
 
 // add data to req.body (for POST requests)
 app.use(express.urlencoded({ extended: true }));
@@ -39,11 +39,10 @@ app.use('/', router);
 
 
 // 404
-app.use((req, res) => {
+router.use('*', function(req, res){
     res.status(404);
-	res.render('404.ejs', {login: req.session.login, logged: req.session.loggedin});
+	res.render('404.ejs', {logged: req.session.loggedin, login:req.session.login});
 });
-
 // run the server
 app.listen(port, () => {
 	// callback executed when the server is launched
