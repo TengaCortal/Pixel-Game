@@ -25,9 +25,9 @@ router.get("/", function(req, res) {
 router.get("/nom/:nom", async (req, res) =>{
 	let nomCanva = req.params.nom;
 	let existe = await canvaExists(nomCanva);
-	duree = 1; 
+	duree = 0.17; 
 	if (req.session.statut === "normal"){
-		duree = 5;
+		duree = 1;
 	}
 	if (existe){
 		[width, height] = await getWidhtHeight(nomCanva);
