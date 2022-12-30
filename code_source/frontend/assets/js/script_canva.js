@@ -10,14 +10,6 @@ var interval;
 //partie canva
 const context = SUPER.getContext('2d');
 
-// chargement de Jquery
-var s = document.createElement("script"); 
-s.src = "jquery.min.js"; 
-s.onload = function(e){ 
-    console.log("Load jq complete !")
-};
-document.head.appendChild(s);
-
 //On définit la taille du canva
 const tailleCellule = 10;
 SUPER.width= tailleCellule*width;
@@ -56,13 +48,16 @@ palette.forEach(color => {
     let b = context.getImageData(gridX*tailleCellule, gridY*tailleCellule, 1, 1).data[2]
     $.ajax({
         type: 'POST',
-        url: '/canva/join/addPixelToDB',
+        url: '/canva/addPixelToDB',
         data: {nom:nom, ligne:gridX, colonne:gridY, r:r, g:g, b:b, login:login},
         error: function(){
             alert('Problème AJAX')
         },
-        success: function(){
-            alert('Requète envoyée')
+        success: function(result){
+            if (result == "devientVip"){
+                alert("Bravo vous êtes devenu VIP! (n'oubliez pas de vous logout une fois vos modification terminées pour que votre statut et autres progressions personnelles soient sauvegardées")
+            }
+
         }
     });
 
@@ -192,9 +187,6 @@ for (let i = 0; i < matrice.length; i+=5){
 
         context.putImageData(pixel, matrice[i+0]*tailleCellule , matrice[i+1]*tailleCellule);    
 }
-
-
-
 
 // Définir une fonction qui mettra à jour le minuteur à chaque seconde
 function startTimer() {

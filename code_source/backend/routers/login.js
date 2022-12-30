@@ -59,8 +59,8 @@ router.get('/login', function (req, res) {
 });
 
 router.get('/logout', function (req, res) {
-	const statement = db.prepare('UPDATE utilisateur SET nbCanvaCree = ? WHERE pseudo = ?;');
-    statement.get(req.session.nbCanvaCree, req.session.login, (err, result) => {
+	const statement = db.prepare('UPDATE utilisateur SET nbCanvaCree = ?, statut = ?, nbTotalPixelPose = ?, statut = ? WHERE pseudo = ?;');
+    statement.get(req.session.nbCanvaCree, req.session.statut, req.session.nbTotalPixelPose, req.session.statut, req.session.login, (err, result) => {
 		req.session.destroy();
 		res.redirect('/login');
 	});

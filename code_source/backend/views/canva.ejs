@@ -11,7 +11,7 @@
         <!--Le stylesheet-->
         <link rel="stylesheet" href="/assets/css/canva.css" />
         <link rel="stylesheet" href="/assets/css/common.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="/assets/js/jquery.min.js"></script>
     </head>
     
     <body>
@@ -45,8 +45,10 @@
         <% } %> 
 
         <div id="couleurs"></div>
+        
+    </body>
 
-
+    <foot>
         <script> let matrice = []</script>
 
         <% pixels.forEach(pixel =>{ %>
@@ -67,8 +69,8 @@
             let login = "<%= login %>";
             let name = "<%= name %>";
         </script>
-        
-        <script src="/assets/js/canva.js"></script>
-    
-    </body>
+
+        <script src="/assets/js/script_canva.js"></script>
+    </foot>
+
 </html>

@@ -39,42 +39,6 @@ router.get("/nom/:nom", async (req, res) =>{
 	
 });
 
-async function idCanva(nom){
-	let sql = `SELECT id FROM canva WHERE nom = "${nom}";`;
-	result = await db.query(sql)
-	return result[0]['id'];
-}
-
-router.post("/addPixelToDB", function(req,res){
-	let data = req.body;
-	if(req.session.loggedin){
-		db.serialize(async() => {
-			let id = await idCanva(data['nom']);
-			const statement = db.prepare('INSERT INTO matrice (id, ligne, colonne, red, green, blue) VALUES(?, ?, ?, ?, ?, ?);');
-			statement.get(id, data['ligne'], data['colonne'], data['r'], data['g'], data['b'], (err, result) => {
-				if(err){
-					res.status(400).send('Erreur lors de la maj de la BD'); //faire une page propre
-				} else {
-					let pseudo = data['login']
-					const statement2 = db.prepare('SELECT * FROM utilisateur WHERE pseudo = ?;');
-					statement2.get(pseudo, (err, result) => {
-						nbPixelAvant = result['nbTotalPixelPose'];
-						incrementerNbPixel(nbPixelAvant,pseudo);
-					});
-					statement2.finalize();
-				}
-			});
-			statement.finalize();
-		})
-	}
-})
-
-function incrementerNbPixel(nbPixelAvant,pseudo){   
-	const statement3 = db.prepare('UPDATE utilisateur SET nbTotalPixelPose = ? WHERE pseudo = ?;');
-	statement3.get(nbPixelAvant + 1, pseudo, (err, result) => {});
-	statement3.finalize();
-}
-
 db.query = function (sql, params) { //fonction pour permettre d'utiliser le await
     sql = sql.replace(/SERIAL PRIMARY KEY/, "INTEGER PRIMARY KEY AUTOINCREMENT");
     var that = this;

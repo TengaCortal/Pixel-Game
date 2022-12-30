@@ -38,34 +38,17 @@ router.post('/available', function(req, res) {
 })
 
 router.post('/', function (req, res, next){
-	let data = req.body;
-	var width = 100;
-	var height = 100;
-	if(data['nom']!=null && data['nom']!="" && data['theme']!=null && data['theme']!="" && data['width']!=0 && data['height']!=0){
-        db.serialize(async() => {
-			const statement = db.prepare('INSERT INTO canva (nom, theme, longueur, largeur) VALUES(?, ?, ?, ?);');
-			if(req.session.statut == "vip"){
-				width = data['width'];
-				height = data['height'];
-			}
-			statement.get(data['nom'], data['theme'], width, height, (err, result) => {
-				if(err){
-					res.status(400).send('Name already used'); //faire une page propre
-				} else {
-                    if(req.session.loggedin){
-						db.serialize(async() => {
-							const statement2 = db.prepare('SELECT * FROM utilisateur WHERE pseudo = ?;');
-							statement2.get(req.session.login , (err, result) => {
-								nbCanvaAvant = result["nbCanvaCree"];
-								incrementerNbCanvaUtilisateur(nbCanvaAvant,req.session.login);
-							});
-							statement2.finalize();
-							db.get('SELECT * FROM site;', (err, result) => {
-								nbCanvaAvant = result["nbCanvaTotal"];
-								incrementerNbCanva(nbCanvaAvant);
-							});
-						})
-					}
+	if (req.session.loggedin){
+		let data = req.body;
+		var width = 100;
+		var height = 100;
+		req.session.nbCanvaCree = req.session.nbCanvaCree + 1;
+		if(data['nom']!=null && data['nom']!="" && data['theme']!=null && data['theme']!="" && data['width']!=0 && data['height']!=0){
+			db.serialize(async() => {
+				const statement = db.prepare('INSERT INTO canva (nom, theme, longueur, largeur) VALUES(?, ?, ?, ?);');
+				if(req.session.statut == "vip"){
+					width = data['width'];
+					height = data['height'];
 				}
 				statement.get(data['nom'], data['theme'], width, height, (err, result) => {
 					if(err){
@@ -82,13 +65,9 @@ router.post('/', function (req, res, next){
 				url = '/canva/join/nom/'+data['nom']
 				res.redirect(url);
 			});
-			statement.finalize();
-	
-			url = '/canva/join/nom/'+data['nom']
-			res.redirect(url);
-        });
-	} else {
-		res.status(400).send('Bad request!');
+		} else {
+			res.status(400).send('Bad request!');
+		}
 	}
 });
 
@@ -105,23 +84,9 @@ db.query = function (sql, params) { //fonction pour permettre d'utiliser le awai
     });
 };
 
-//utile ?
-async function idCanva(nom){
-	let res;
-	let sql = `SELECT id FROM canva WHERE nom = "${nom}";`;
-	result = await db.query(sql)
-	return result[0]["id"];
-}
-
 function incrementerNbCanva(nbCanvaAvant){   
 	const statement = db.prepare('UPDATE site SET nbCanvaTotal = ?;');
 	statement.get(nbCanvaAvant + 1, (err, result) => {});
-	statement.finalize();
-}
-
-function incrementerNbCanvaUtilisateur(nbCanvaAvant, login){   
-	const statement = db.prepare('UPDATE utilisateur SET nbCanvaCree = ? WHERE pseudo = ?;');
-	statement.get(nbCanvaAvant + 1, login, (err, result) => {});
 	statement.finalize();
 }
 
