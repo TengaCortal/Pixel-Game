@@ -36,6 +36,8 @@ palette.forEach(color => {
     })
 })
 
+couleurChoisie = "#000"
+
  SUPER.addEventListener('click', function(event){
     const x = event.offsetX;
     const y = event.offsetY;
@@ -76,7 +78,7 @@ palette.forEach(color => {
     // Exécuter la fonction qui supprime l'overlay une fois le minuteur terminé
     setTimeout(function() {
     overlay.parentNode.removeChild(overlay);
-    }, 1000*60*duration); // durée voulue
+    }, 1000*60*duration+2000); // durée voulue
 
     // Convertir la durée en secondes
     document.cookie=`timer${login}=${duration * 60}`
@@ -154,7 +156,7 @@ if (getCookie(`timer${login}`)>0){
     // Exécuter la fonction qui supprime l'overlay une fois le minuteur terminé
     setTimeout(function() {
     overlay.parentNode.removeChild(overlay);
-    }, 1000*getCookie(`timer${login}`)); // durée voulue
+    }, 2000+1000*getCookie(`timer${login}`)); // durée voulue
 }
 
 var pixelBlanc = context.createImageData(tailleCellule, tailleCellule);
