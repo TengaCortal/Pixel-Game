@@ -209,7 +209,7 @@ function startTimer() {
     // Décrémenter le compteur de 1 seconde
     document.cookie = `timer${login}=${getCookie(`timer${login}`) - 1}`;
 
-    // Si le minuteur atteint 0, arrêter le minuteur
+    // Si le minuteur atteint 0, arrêter le minuteur et refresh la page
     if (getCookie(`timer${login}`) < 0) {
         clearInterval(interval);
         window.location.reload()

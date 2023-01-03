@@ -40,6 +40,12 @@
         <% if (logged){ %>
             <div id="time"> Time left before you can put a new pixel: <p id="timer"></p></div>
         <% }else{ %>
+            <script>
+                setInterval(function(){
+                    window.location.reload(1);
+                    }
+                , 10000);
+            </script>
             <div id="invite"> You must be logged to put pixels! You can go to the login section!</div>
             <div class="overlay"></div>
         <% } %> 
