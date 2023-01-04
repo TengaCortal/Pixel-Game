@@ -40,7 +40,7 @@ palette.forEach(color => {
 
 couleurChoisie = "#000"
 
-function chargement(result){ //Auteur de la fonction Adrien
+function chargement(result){ //Auteur de la fonction Adrien/Nathan
     let matrice = []
     result.forEach(pixel =>{ 
         matrice.push(pixel.ligne)
@@ -106,6 +106,9 @@ setInterval(function(){ //Auteur de la fonction Nathan/Adrien
         }
     });
 
+    ancienX = -10000;
+    ancienY = -10000;
+
     // Créer l'élément overlay
     var overlay = document.createElement('div');
 
@@ -166,17 +169,6 @@ SUPER.addEventListener('mousemove', function(event){ //Auteur de la fonction Ten
     // Draw mouse effect
     drawMouseEffect(x, y);
 })
-
-function addPixel(){ //Auteur de la fonction Tenga
-    //on récup les coordonnées de l'endroit clické par l'utilisateur
-    const x = curseur.offsetLeft - SUPER.offsetLeft
-    const y = curseur.offsetTop - SUPER.offsetTop //on soustrait la distance qu'il y a entre le haut de la page et le haut du canva
-    //on fait apparaitre un "pixel" à ces coordonnées 
-    context.beginPath()
-    context.fillStyle = couleurChoisie
-    context.fillRect(x, y, tailleCellule, tailleCellule)
-    return [x, y]
-}
 
 //affichage au chargement
 
