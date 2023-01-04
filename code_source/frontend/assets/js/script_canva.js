@@ -6,6 +6,7 @@ var nom = name;
 // Définissez la durée du minuteur en minutes
 var duration = duree;
 var interval;
+var devientVip = false;
 
 //partie canva
 const context = SUPER.getContext('2d');
@@ -108,11 +109,17 @@ SUPER.addEventListener('click', function(event){
         },
         success: function(result){
             if (result == "devientVip"){
-                alert("Bravo vous êtes devenu VIP! (n'oubliez pas de vous logout une fois vos modification terminées pour que votre statut et autres progressions personnelles soient sauvegardées")
+                devientVip = true
             }
 
         }
     });
+
+    if (devientVip){
+        duration = 0.17
+        alert("Congratulations on becoming a VIP! (don't forget to logout once you've finished your modifications so that your status and other personal progressions are saved)")
+        console.log("passe")
+    }
 
     ancienX = -10000;
     ancienY = -10000;

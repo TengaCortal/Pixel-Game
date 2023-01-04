@@ -27,7 +27,7 @@ router.post("/addPixelToDB", function(req,res){ //Auteur de la fonction Nathan
 					res.status(400).send('Erreur lors de la maj de la BD'); //faire une page propre
 				} else {
 					req.session.nbTotalPixelPose = req.session.nbTotalPixelPose + 1;
-					if ((req.session.nbTotalPixelPose == 1000) & (req.session.statut == "normal")){
+					if ((req.session.nbTotalPixelPose == 999) & (req.session.statut == "normal")){
 						req.session.statut = "vip";
 						res.status(200).send("devientVip");
 					}
