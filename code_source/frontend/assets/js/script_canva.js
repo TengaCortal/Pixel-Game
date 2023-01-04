@@ -15,6 +15,8 @@ const tailleCellule = 10;
 SUPER.width= tailleCellule*width;
 SUPER.height= tailleCellule*height;
 
+//Auteur de la palette de la couleur Tenga
+
 //liste des couleurs qui compose la palette à laquelle l'utilisateur pourra accéder rapidement 
 const palette = [ 
     "#FFEBEE", "#FCE4EC", "#F3E5F5", "#B39DDB", "#9FA8DA", "#90CAF9", "#81D4FA", "#80DEEA", 
@@ -25,7 +27,20 @@ const palette = [
 //affichage de la palette de couleurs et gestion de la sélection 
 let couleurChoisie = palette[20]
 
-function chargement(result){
+palette.forEach(color => {
+
+    const couleur = document.createElement('div')
+    couleur.style.backgroundColor = color
+    couleurs.appendChild(couleur)
+
+    couleur.addEventListener('click', () => {
+        couleurChoisie = color 
+    })
+})
+
+couleurChoisie = "#000"
+
+function chargement(result){ //Auteur de la fonction Adrien
     let matrice = []
     result.forEach(pixel =>{ 
         matrice.push(pixel.ligne)
@@ -51,7 +66,7 @@ function chargement(result){
 }
 
 //chargement du canva toutes les 10 secondes
-setInterval(function(){
+setInterval(function(){ //Auteur de la fonction Nathan/Adrien
         $.ajax({
             type: 'POST',
             url: '/canva/chargement',
@@ -66,20 +81,7 @@ setInterval(function(){
     }
 , 1000);
 
-palette.forEach(color => {
-
-    const couleur = document.createElement('div')
-    couleur.style.backgroundColor = color
-    couleurs.appendChild(couleur)
-
-    couleur.addEventListener('click', () => {
-        couleurChoisie = color 
-    })
-})
-
-couleurChoisie = "#000"
-
- SUPER.addEventListener('click', function(event){
+ SUPER.addEventListener('click', function(event){ //Auteur de la fonction Nathan
     const x = event.offsetX;
     const y = event.offsetY;
     //ajout à la BD
@@ -131,7 +133,7 @@ var ancienX;
 var ancienY;
 var ancienneCouleur
 
-function drawMouseEffect(x, y) {
+function drawMouseEffect(x, y) { //Auteur de la fonction Tenga
     // Set fill color
     context.fillStyle = couleurChoisie;
 
@@ -151,7 +153,7 @@ function drawMouseEffect(x, y) {
     context.fillRect(gridX, gridY, tailleCellule, tailleCellule);      
 }
 
-SUPER.addEventListener('mousemove', function(event){
+SUPER.addEventListener('mousemove', function(event){ //Auteur de la fonction Tenga
     //redraw the previous pixel we were on
     context.beginPath();
     context.fillStyle = ancienneCouleur
@@ -165,7 +167,7 @@ SUPER.addEventListener('mousemove', function(event){
     drawMouseEffect(x, y);
 })
 
-function addPixel(){
+function addPixel(){ //Auteur de la fonction Tenga
     //on récup les coordonnées de l'endroit clické par l'utilisateur
     const x = curseur.offsetLeft - SUPER.offsetLeft
     const y = curseur.offsetTop - SUPER.offsetTop //on soustrait la distance qu'il y a entre le haut de la page et le haut du canva
@@ -178,7 +180,7 @@ function addPixel(){
 
 //affichage au chargement
 
-if (getCookie(`timer${login}`)>0){
+if (getCookie(`timer${login}`)>0){  //Auteur de la fonction Adrien
     interval = setInterval(startTimer, 1000);
 
     // Créer l'élément overlay
@@ -201,7 +203,7 @@ if (getCookie(`timer${login}`)>0){
 }
 
 var pixelBlanc = context.createImageData(tailleCellule, tailleCellule);
-for (let j = 0; j < pixelBlanc.data.length; j += 4) {
+for (let j = 0; j < pixelBlanc.data.length; j += 4) { //Auteur de la fonction Adrien
     // Modify pixel data
     pixelBlanc.data[j+0] = 255;
     pixelBlanc.data[j+1] = 255;
@@ -217,7 +219,7 @@ for (let i = 0; i < width; i+=1){
 }
 
 //affichage des pixels qui sont en BD
-for (let i = 0; i < matrice.length; i+=5){
+for (let i = 0; i < matrice.length; i+=5){  //Auteur de la fonction Adrien
         pixel = context.createImageData(tailleCellule, tailleCellule);
 
         for (let j = 0; j < pixel.data.length; j += 4) {
@@ -232,7 +234,7 @@ for (let i = 0; i < matrice.length; i+=5){
 }
 
 // Définir une fonction qui mettra à jour le minuteur à chaque seconde
-function startTimer() {
+function startTimer() { //Auteur de la fonction Adrien
     // Convertir les secondes restantes en minutes et secondes
     var minutes = parseInt(getCookie(`timer${login}`) / 60, 10)
     var seconds = parseInt(getCookie(`timer${login}`) % 60, 10);
@@ -256,17 +258,17 @@ function startTimer() {
     }
 }
 
-function getCookie(name) {
+function getCookie(name) { //Auteur de la fonction Adrien
     const value = `; ${document.cookie}`
     const parts = value.split(`; ${name}=`)
     if (parts.length === 2) return parts.pop().split(';').shift()
 }
 
-function componentToHex(c) {
+function componentToHex(c) { //Auteur de la fonction Adrien
     var hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
 }
   
-function rgbToHex(r, g, b) {
+function rgbToHex(r, g, b) { //Auteur de la fonction Adrien
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }

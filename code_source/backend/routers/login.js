@@ -16,7 +16,7 @@ const db  = new sqlite3.Database('./db/pixel_war.db', (err) => {
 });
 
 // check credentials in database + initialize session
-router.post('/login', function (req, res, next) {
+router.post('/login', function (req, res, next) { //Auteur de la fonction Tenga
 	let data = req.body;
     //console.log(data);
 	if(data['login']!=null && data['login']!="" && data['password']!=null && data['password']!=""){
@@ -54,11 +54,11 @@ router.post('/login', function (req, res, next) {
 	}
 });
 
-router.get('/login', function (req, res) {
+router.get('/login', function (req, res) { //Auteur de la fonction Tenga
 	res.render('login.ejs', {logged: req.session.loggedin, login: req.session.login, error: false});
 });
 
-router.get('/logout', function (req, res) {
+router.get('/logout', function (req, res) { //Auteur de la fonction Tenga
 	const statement = db.prepare('UPDATE utilisateur SET nbCanvaCree = ?, statut = ?, nbTotalPixelPose = ?, statut = ? WHERE pseudo = ?;');
     statement.get(req.session.nbCanvaCree, req.session.statut, req.session.nbTotalPixelPose, req.session.statut, req.session.login, (err, result) => {
 		req.session.destroy();

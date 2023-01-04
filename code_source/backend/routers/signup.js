@@ -15,7 +15,7 @@ const db  = new sqlite3.Database('./db/pixel_war.db', (err) => {
 	console.log('Connected to the database!');
 });
 
-router.post('/', function (req, res) {
+router.post('/', function (req, res) { //Auteur de la fonction Adrien
     let data = req.body;
     let aCree = false;
     if(data['login']!=null && data['login']!="" && data['password']!=null && data['password']!=""){
@@ -47,7 +47,7 @@ router.post('/', function (req, res) {
     }
 });
 
-function incrementerNbUtilisateur(nbUtilisateurAvant){   
+function incrementerNbUtilisateur(nbUtilisateurAvant){   //Auteur de la fonction Adrien
         const statement = db.prepare('UPDATE site SET nbUtilisateurTotal = ?;');
         statement.get(nbUtilisateurAvant + 1, (err, result) => {});
         statement.finalize();
@@ -55,7 +55,7 @@ function incrementerNbUtilisateur(nbUtilisateurAvant){
 
 }
 
-router.post('/available', function(req, res) {
+router.post('/available', function(req, res) { //Auteur de la fonction Adrien
     let data = req.body;
     db.serialize(() => {
         const statement = db.prepare("SELECT pseudo FROM utilisateur WHERE pseudo=?");
@@ -74,7 +74,7 @@ router.post('/available', function(req, res) {
     })
 })
 
-router.get('/', function (req, res) {
+router.get('/', function (req, res) { //Auteur de la fonction Adrien
 	res.sendFile('signup.html', {root: "../frontend"});
 });
 

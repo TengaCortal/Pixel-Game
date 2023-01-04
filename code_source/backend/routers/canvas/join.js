@@ -1,3 +1,4 @@
+//Auteur du fichier Adrien
 const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
@@ -10,7 +11,7 @@ const db  = new sqlite3.Database('./db/pixel_war.db', (err) => {
 	console.log('Connected to the database!');
 });
  
-router.get("/", function(req, res) {
+router.get("/", function(req, res) { //Auteur de la fonction Adrien
 	let list_theme;
 	db.serialize(() =>{
 		db.all("SELECT DISTINCT theme FROM canva;", (err, result) =>{
@@ -22,7 +23,7 @@ router.get("/", function(req, res) {
 	})	    
 });
 
-router.get("/nom/:nom", async (req, res) =>{
+router.get("/nom/:nom", async (req, res) =>{ //Auteur de la fonction Adrien
 	let nomCanva = req.params.nom;
 	let existe = await canvaExists(nomCanva);
 	duree = 0.17; 
@@ -39,7 +40,7 @@ router.get("/nom/:nom", async (req, res) =>{
 	
 });
 
-db.query = function (sql, params) { //fonction pour permettre d'utiliser le await
+db.query = function (sql, params) { //fonction pour permettre d'utiliser le await //Auteur de la fonction Adrien
     sql = sql.replace(/SERIAL PRIMARY KEY/, "INTEGER PRIMARY KEY AUTOINCREMENT");
     var that = this;
     return new Promise(function (resolve, reject) {
@@ -52,20 +53,20 @@ db.query = function (sql, params) { //fonction pour permettre d'utiliser le awai
     });
 };
 
-async function getPixels(nom){
+async function getPixels(nom){ //Auteur de la fonction Adrien
 	let sql = `SELECT ligne, colonne, red, green, blue FROM matrice m, canva c WHERE m.id = c.id and c.nom = "${nom}";`;
 	result = await db.query(sql);
 	return result;
 
 }
 
-async function getWidhtHeight(nom){
+async function getWidhtHeight(nom){ //Auteur de la fonction Adrien
 	let sql = `SELECT largeur, longueur FROM canva WHERE nom = "${nom}";`;
 	result = await db.query(sql);
 	return [result[0]["largeur"], result[0]["longueur"]];
 }
 
-async function canvaExists(nom){
+async function canvaExists(nom){ //Auteur de la fonction Adrien
 	let res;
 	let sql = `SELECT * FROM canva WHERE nom = "${nom}";`;
 	result = await db.query(sql)

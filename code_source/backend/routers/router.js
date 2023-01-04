@@ -19,7 +19,7 @@ router.get('/index.html', function (req, res) {
 	res.redirect('/');
 });
 
-router.get('/', function (req, res) {
+router.get('/', function (req, res) { //Auteur de la fonction Adrien
 	var nbUtilisateur = 0;
 	var nbCanva = 0;
 	var statut = "0";

@@ -1,4 +1,5 @@
-const e = require('express');
+//Auteur du fichier Nathan
+
 const express = require('express');
 const router = express.Router();
 
@@ -15,7 +16,7 @@ const db  = new sqlite3.Database('./db/pixel_war.db', (err) => {
 	console.log('Connected to the database!');
 });
 
-router.post('/available', function(req, res) {
+router.post('/available', function(req, res) { //Auteur de la fonction Nathan
     let data = req.body;
 	if (req.session.loggedin){
 		db.serialize(() => {
@@ -37,7 +38,7 @@ router.post('/available', function(req, res) {
 	}
 })
 
-router.post('/', function (req, res, next){
+router.post('/', function (req, res, next){ //Auteur de la fonction Nathan
 	if (req.session.loggedin){
 		let data = req.body;
 		var width = 100;
@@ -71,7 +72,7 @@ router.post('/', function (req, res, next){
 	}
 });
 
-db.query = function (sql, params) { //fonction pour permettre d'utiliser le await
+db.query = function (sql, params) { //fonction pour permettre d'utiliser le await //Auteur de la fonction Adrien
     sql = sql.replace(/SERIAL PRIMARY KEY/, "INTEGER PRIMARY KEY AUTOINCREMENT");
     var that = this;
     return new Promise(function (resolve, reject) {
@@ -84,13 +85,13 @@ db.query = function (sql, params) { //fonction pour permettre d'utiliser le awai
     });
 };
 
-function incrementerNbCanva(nbCanvaAvant){   
+function incrementerNbCanva(nbCanvaAvant){   //Auteur de la fonction Nathan/Adrien
 	const statement = db.prepare('UPDATE site SET nbCanvaTotal = ?;');
 	statement.get(nbCanvaAvant + 1, (err, result) => {});
 	statement.finalize();
 }
 
-router.get('/', function (req, res) {
+router.get('/', function (req, res) { //Auteur de la fonction Nathan
 	if (req.session.loggedin){
 		res.sendFile('create.html', {root: "../frontend"});
 	}
