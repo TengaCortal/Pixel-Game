@@ -26,8 +26,9 @@ const palette = [
 
 //affichage de la palette de couleurs et gestion de la sélection 
 let couleurChoisie = palette[20]
+let colorButton = document.getElementById("colorbar")
 
-palette.forEach(color => {
+palette.forEach(color => { //Auteur de la fonction Tenga
 
     const couleur = document.createElement('div')
     couleur.style.backgroundColor = color
@@ -81,7 +82,14 @@ setInterval(function(){ //Auteur de la fonction Nathan/Adrien
     }
 , 1000);
 
- SUPER.addEventListener('click', function(event){ //Auteur de la fonction Nathan
+
+colorButton.addEventListener('input', () => { //Auteur de la fonction Tenga
+    couleurChoisie = colorButton.value
+})
+
+couleurChoisie = "#000"
+
+SUPER.addEventListener('click', function(event){
     const x = event.offsetX;
     const y = event.offsetY;
     //ajout à la BD

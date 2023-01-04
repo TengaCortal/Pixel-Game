@@ -29,6 +29,10 @@ h1 {
   cursor: none;
 }
 
+.wrapper{
+  background-color:#fff;
+
+}
 #couleurs {
   position: fixed;
   right: 50px;

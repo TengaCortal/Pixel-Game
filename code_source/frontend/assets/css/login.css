@@ -89,7 +89,7 @@ h2 {
 /* Boîte Login */
 #box{
 	position:fixed;
-	left:100vh;
+	left:50%;
 	top:60vh;
 	transform: translate(-50%,-50%);
     background-color: rgba(0, 0, 0, 0.89);
