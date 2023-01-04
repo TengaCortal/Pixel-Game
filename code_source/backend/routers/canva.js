@@ -42,10 +42,24 @@ router.post("/addPixelToDB", function(req,res){
 	}
 })
 
+router.post("/chargement", async function(req, res){
+	let data = req.body;
+	nom = data.nom;
+	pixels = await getPixels(nom)
+	res.status(200).send(pixels)
+})
+
 async function idCanva(nom){
 	let sql = `SELECT id FROM canva WHERE nom = "${nom}";`;
 	result = await db.query(sql)
 	return result[0]['id'];
+}
+
+async function getPixels(nom){
+	let sql = `SELECT ligne, colonne, red, green, blue FROM matrice m, canva c WHERE m.id = c.id and c.nom = "${nom}";`;
+	result = await db.query(sql);
+	return result;
+
 }
 
 db.query = function (sql, params) { //fonction pour permettre d'utiliser le await

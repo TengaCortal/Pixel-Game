@@ -25,6 +25,47 @@ const palette = [
 //affichage de la palette de couleurs et gestion de la sélection 
 let couleurChoisie = palette[20]
 
+function chargement(result){
+    let matrice = []
+    result.forEach(pixel =>{ 
+        matrice.push(pixel.ligne)
+        matrice.push(pixel.colonne)
+        matrice.push(pixel.red)
+        matrice.push(pixel.green)
+        matrice.push(pixel.blue)
+    });
+    
+    for (let i = 0; i < matrice.length; i+=5){
+        pixel = context.createImageData(tailleCellule, tailleCellule);
+
+        for (let j = 0; j < pixel.data.length; j += 4) {
+            // Modify pixel data
+            pixel.data[j+0] = matrice[i+2];
+            pixel.data[j+1] = matrice[i+3];
+            pixel.data[j+2] = matrice[i+4];
+            pixel.data[j+3] = 255;
+        }     
+
+        context.putImageData(pixel, matrice[i+0]*tailleCellule , matrice[i+1]*tailleCellule);    
+    }
+}
+
+//chargement du canva toutes les 10 secondes
+setInterval(function(){
+        $.ajax({
+            type: 'POST',
+            url: '/canva/chargement',
+            data: {nom:nom},
+            error: function(){
+                alert('Problème AJAX')
+            },
+            success: function(result){
+                chargement(result)
+            }
+        });
+    }
+, 1000);
+
 palette.forEach(color => {
 
     const couleur = document.createElement('div')
@@ -212,7 +253,6 @@ function startTimer() {
     // Si le minuteur atteint 0, arrêter le minuteur et refresh la page
     if (getCookie(`timer${login}`) < 0) {
         clearInterval(interval);
-        window.location.reload()
     }
 }
 
