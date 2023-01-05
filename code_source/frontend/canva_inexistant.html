@@ -1,7 +1,37 @@
-<!-- Auteur du fichier Adrien -->
+<!-- Auteur du fichier Tenga -->
 
 <!DOCTYPE html>
 <html lang="en">
+
+  <script>
+    function includeHTML() {
+      var z, i, elmnt, file, xhttp;
+      /*loop through a collection of all HTML elements:*/
+      z = document.getElementsByTagName("*");
+      for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("w3-include-html");
+        if (file) {
+          /*make an HTTP request using the attribute value as the file name:*/
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+              if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+              if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+              /*remove the attribute, and call this function once more:*/
+              elmnt.removeAttribute("w3-include-html");
+              includeHTML();
+            }
+          }      
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          /*exit the function:*/
+          return;
+        }
+      }
+    };
+  </script>
 
 <head>
   <meta charset="utf-8">
@@ -15,15 +45,18 @@
   <link href="/assets/img/favicon.png" rel="icon">
   
   <!-- Template Main CSS File -->
-  <link href="/assets/css/main.css" rel="stylesheet">
+  <link href="/assets/css/404.css" rel="stylesheet">
+  
 
 </head>
 
 <body>
+  
+  <div w3-include-html="/particles.html"></div> 
 
-  <div id="stars"></div>
-  <div id="stars2"></div>
-  <div id="stars3"></div>
+  <script>
+    includeHTML();
+  </script>
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -33,7 +66,9 @@
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <h1>Super Pixel Game!</h1>
       </a>
+
     </div>
+
 
     <div class="float-area">
       <a href="/" ><img id="home" src="/assets/img/home.png" class="floating-img"></a>
@@ -48,7 +83,8 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2> Canva not found! </h2>
+          <h2>Sorry, this canva was not found!</h2>
+          <h3>404</h3>
         </div>
 
       </div>
@@ -56,8 +92,12 @@
 
   
 	  <!-- ======= 404 Section ======= -->
-    <section id="Canva inexistant" class="canva inexistant">
-      <div> There is not any canva created yet with this name! You can create one by clicking on this <a href="/canva/create">link</a>.</div>
+    <section id="404" class="404">
+      <div id="redirect" class="container" >
+        Click 
+        <a id="here" href="/canva/create"> here</a>
+        to create one.
+      </div>
     </section><!-- End 404 Section -->
 
    

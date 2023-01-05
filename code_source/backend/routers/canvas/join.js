@@ -26,9 +26,9 @@ router.get("/", function(req, res) { //Auteur de la fonction Adrien
 router.get("/nom/:nom", async (req, res) =>{ //Auteur de la fonction Adrien
 	let nomCanva = req.params.nom;
 	let existe = await canvaExists(nomCanva);
-	duree = 0.17; 
+	duree = 0.17; //10 secondes pour les vips
 	if (req.session.statut === "normal"){
-		duree = 1;
+		duree = 1; //1 minute
 	}
 	if (existe){
 		[width, height] = await getWidhtHeight(nomCanva);

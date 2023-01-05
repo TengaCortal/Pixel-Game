@@ -23,7 +23,7 @@ router.post('/', function (req, res) { //Auteur de la fonction Adrien
 			const statement = db.prepare('INSERT INTO utilisateur (pseudo, motDePasse, statut, nbTotalPixelPose, nbCanvaCree) VALUES(?, ?, "normal", 0, 0);');
 			statement.get(data['login'], md5(data['password']), (err, result) => {
 				if(err){
-					res.status(400).send('Login déjà utilisé!'); //faire une page propre
+					res.status(400).send('Login déjà utilisé!');
 				} else {
                     req.session.login = data["login"];
                     req.session.loggedin = true;

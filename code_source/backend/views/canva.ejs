@@ -53,9 +53,10 @@
     </body>
 <!-- Auteur du script Adrien -->
     <foot>
+        <!--sauvegarder les pixels pour le chargement de la page-->
         <script> let matrice = []</script>
-
-        <% pixels.forEach(pixel =>{ %>
+        
+        <% pixels.forEach(pixel =>{ %> 
             <script> 
                 matrice.push(<%= pixel.ligne %>)
                 matrice.push(<%= pixel.colonne %>)
@@ -66,7 +67,6 @@
         <% }); %>
         
         <script> 
-            
             let width = <%= width %>;
             let height = <%= height %>;
             let duree = <%= duree %>;

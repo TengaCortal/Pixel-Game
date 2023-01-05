@@ -18,28 +18,26 @@ const db  = new sqlite3.Database('./db/pixel_war.db', (err) => {
 // check credentials in database + initialize session
 router.post('/login', function (req, res, next) { //Auteur de la fonction Tenga
 	let data = req.body;
-    //console.log(data);
 	if(data['login']!=null && data['login']!="" && data['password']!=null && data['password']!=""){
 		
 		db.serialize(() => {
-			// check if the password is okay
 			const statement = db.prepare("SELECT pseudo, motDePasse, statut, nbCanvaCree, nbTotalPixelPose FROM utilisateur WHERE pseudo=?;");
 			statement.get(data['login'], (err, result) => {
 				if(err){
 					next(err);
 				} else {
-					if (typeof(result)==="undefined"){
+					if (typeof(result)==="undefined"){ //utilisateur incorrect
 						res.render('login.ejs', {logged: false, login: req.session.login, error: true});
 					}
 					else{
-						if(result["motDePasse"] == md5(data["password"])){
+						if(result["motDePasse"] == md5(data["password"])){ // check if the password is okay
 							req.session.loggedin=true;
 							req.session.login = result['pseudo'];
 							req.session.statut = result['statut'];
 							req.session.nbCanvaCree = result['nbCanvaCree'];
 							req.session.nbTotalPixelPose = result['nbTotalPixelPose'];
 							res.redirect("/")
-						} else {
+						} else { //mdp incorrect
 							res.render('login.ejs', {logged: false, login: req.session.login, error: true});
 						}
 					}

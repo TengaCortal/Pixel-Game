@@ -3,6 +3,7 @@ const couleurs = document.querySelector('#couleurs');
 const curseur = document.querySelector('#curseur');
 
 var nom = name;
+
 // Définissez la durée du minuteur en minutes
 var duration = duree;
 var interval;
@@ -57,17 +58,17 @@ function chargement(result){ //Auteur de la fonction Adrien/Nathan
 
         for (let j = 0; j < pixel.data.length; j += 4) {
             // Modify pixel data
-            pixel.data[j+0] = matrice[i+2];
-            pixel.data[j+1] = matrice[i+3];
-            pixel.data[j+2] = matrice[i+4];
-            pixel.data[j+3] = 255;
+            pixel.data[j+0] = matrice[i+2]; //r
+            pixel.data[j+1] = matrice[i+3]; //g
+            pixel.data[j+2] = matrice[i+4]; //b
+            pixel.data[j+3] = 255; //transparence
         }     
 
         context.putImageData(pixel, matrice[i+0]*tailleCellule , matrice[i+1]*tailleCellule);    
     }
 }
 
-//chargement du canva toutes les 10 secondes
+//chargement du canva toutes les secondes
 setInterval(function(){ //Auteur de la fonction Nathan/Adrien
         $.ajax({
             type: 'POST',
@@ -90,17 +91,18 @@ colorButton.addEventListener('input', () => { //Auteur de la fonction Tenga
 
 couleurChoisie = "#000"
 
-SUPER.addEventListener('click', function(event){
+SUPER.addEventListener('click', function(event){ //Auteur de la fonction Nathan
     const x = event.offsetX;
     const y = event.offsetY;
-    //ajout à la BD
+
     const gridX = Math.floor(x / tailleCellule);
     const gridY = Math.floor(y / tailleCellule);
-    //Store the values when the mouse will quit the pixel we are on
-    let r = context.getImageData(gridX*tailleCellule, gridY*tailleCellule, 1, 1).data[0]
-    let g = context.getImageData(gridX*tailleCellule, gridY*tailleCellule, 1, 1).data[1]
-    let b = context.getImageData(gridX*tailleCellule, gridY*tailleCellule, 1, 1).data[2]
-    $.ajax({
+
+    //Get the value of the color we chose
+    let r = hexToRgb(couleurChoisie).r
+    let g = hexToRgb(couleurChoisie).g
+    let b = hexToRgb(couleurChoisie).b
+    $.ajax({ //ajax request to add to the DB
         type: 'POST',
         url: '/canva/addPixelToDB',
         data: {nom:nom, ligne:gridX, colonne:gridY, r:r, g:g, b:b, login:login},
@@ -121,10 +123,12 @@ SUPER.addEventListener('click', function(event){
         console.log("passe")
     }
 
-    ancienX = -10000;
+    //reset the values
+    ancienX = -10000; 
     ancienY = -10000;
 
-    // Créer l'élément overlay
+    //Auteur de l'overlay et du timer Adrien
+    // Créer l'élément overlay pour bloquer les clics
     var overlay = document.createElement('div');
 
     // Ajouter une classe CSS à l'élément overlay
@@ -141,12 +145,13 @@ SUPER.addEventListener('click', function(event){
     overlay.parentNode.removeChild(overlay);
     }, 1000*60*duration+2000); // durée voulue
 
-    // Convertir la durée en secondes
+    // Convertir la durée en secondes et la stocker en session
     document.cookie=`timer${login}=${duration * 60}`
 
     interval = setInterval(startTimer, 1000);
 })
 
+//sauvegarder les couleurs et les coordonées pour le déplacement de la souris
 var ancienX;
 var ancienY;
 var ancienneCouleur
@@ -185,8 +190,9 @@ SUPER.addEventListener('mousemove', function(event){ //Auteur de la fonction Ten
     drawMouseEffect(x, y);
 })
 
-//affichage au chargement
+//affichage au chargement 
 
+//si le timer n'était pas terminé
 if (getCookie(`timer${login}`)>0){  //Auteur de la fonction Adrien
     interval = setInterval(startTimer, 1000);
 
@@ -209,6 +215,7 @@ if (getCookie(`timer${login}`)>0){  //Auteur de la fonction Adrien
     }, 2000+1000*getCookie(`timer${login}`)); // durée voulue
 }
 
+//création d'un pixel blanc
 var pixelBlanc = context.createImageData(tailleCellule, tailleCellule);
 for (let j = 0; j < pixelBlanc.data.length; j += 4) { //Auteur de la fonction Adrien
     // Modify pixel data
@@ -279,3 +286,18 @@ function componentToHex(c) { //Auteur de la fonction Adrien
 function rgbToHex(r, g, b) { //Auteur de la fonction Adrien
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
+
+function hexToRgb(hex) { //Auteur de la fonction Adrien
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+      return r + r + g + g + b + b;
+    });
+  
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
