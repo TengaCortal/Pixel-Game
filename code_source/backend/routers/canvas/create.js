@@ -46,23 +46,18 @@ router.post('/', function (req, res, next){ //Auteur de la fonction Nathan
 		req.session.nbCanvaCree = req.session.nbCanvaCree + 1;
 		if(data['nom']!=null && data['nom']!="" && data['theme']!=null && data['theme']!="" && data['width']!=0 && data['height']!=0){
 			db.serialize(async() => {
-				const statement = db.prepare('INSERT INTO canva (nom, theme, longueur, largeur) VALUES(?, ?, ?, ?);');
 				if(req.session.statut == "vip"){
 					width = data['width'];
 					height = data['height'];
 				}
-				statement.get(data['nom'], data['theme'], width, height, (err, result) => {
-					if(err){
-						res.status(400).send('Name already used'); //faire une page propre
-					} else {
-						if(req.session.loggedin){
-							db.get('SELECT * FROM site;', (err, result) => {
-								nbCanvaAvant = result["nbCanvaTotal"];
-								incrementerNbCanva(nbCanvaAvant);
-							});
-						}
-					}
-				});
+				sql = `INSERT INTO canva (nom, theme, longueur, largeur) VALUES("${data['nom']}", "${data['theme']}", ${width}, ${height});`
+				await db.query(sql)
+				if(req.session.loggedin){
+					db.get('SELECT * FROM site;', (err, result) => {
+						nbCanvaAvant = result["nbCanvaTotal"];
+						incrementerNbCanva(nbCanvaAvant);
+					});
+				}
 				url = '/canva/join/nom/'+data['nom']
 				res.redirect(url);
 			});
