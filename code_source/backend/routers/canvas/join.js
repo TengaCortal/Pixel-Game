@@ -16,9 +16,12 @@ router.get("/", function(req, res) { //Auteur de la fonction Adrien
 	db.serialize(() =>{
 		db.all("SELECT DISTINCT theme FROM canva;", (err, result) =>{
 			list_theme = result;
+			result.sort((x, y) => x.theme.localeCompare(y.theme));
 		});
 		db.all("SELECT c.nom, c.theme, c.longueur, c.largeur FROM canva c;", (err, result) => {
-			res.render("join.ejs", {themes : list_theme, canvas : result});
+			result.sort((x, y) => x.nom.localeCompare(y.nom));
+			list_nom = result
+			res.render("join.ejs", {themes : list_theme, canvas : list_nom});
 		})
 	})	    
 });

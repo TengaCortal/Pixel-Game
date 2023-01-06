@@ -17,7 +17,6 @@ const db  = new sqlite3.Database('./db/pixel_war.db', (err) => {
 
 router.post('/', function (req, res) { //Auteur de la fonction Adrien
     let data = req.body;
-    let aCree = false;
     if(data['login']!=null && data['login']!="" && data['password']!=null && data['password']!=""){
         db.serialize(() => {
 			const statement = db.prepare('INSERT INTO utilisateur (pseudo, motDePasse, statut, nbTotalPixelPose, nbCanvaCree) VALUES(?, ?, "normal", 0, 0);');
